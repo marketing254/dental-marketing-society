@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
+}
+
+@theme {
+  /* ----- Brand palette (derived from the logo: coral-orange + teal + navy) -----
+     NOTE: the accent scale keeps the historical `gold-*` token names so existing
+     utility classes map straight onto the new coral brand colour — no renames. */
+  --color-navy-950: #050b14;
+  --color-navy-900: #0a1422;
+  --color-navy-850: #0d1a2c;
+  --color-navy-800: #122339;
+  --color-navy-700: #1b3454;
+  --color-navy-600: #244670;
+
+  /* Coral / orange accent (the "DENTAL" mark) */
+  --color-gold-200: #ffe0cd;
+  --color-gold-300: #fdb78f;
+  --color-gold-400: #fb9061;
+  --color-gold-500: #f26b3a;
+  --color-gold-600: #d6521f;
+
+  /* Explicit coral aliases for clarity in new code */
+  --color-coral-300: #fdb78f;
+  --color-coral-400: #fb9061;
+  --color-coral-500: #f26b3a;
+  --color-coral-600: #d6521f;
+
+  --color-ivory: #f6f3ec;
+  --color-mist: #a3b4c9;
+  --color-mist-dark: #708399;
+
+  /* Teal (the figures + swoosh) */
+  --color-teal-300: #5fd0e2;
+  --color-teal-400: #25aecb;
+  --color-teal-500: #1894b0;
+
+  /* ----- Animations ----- */
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-float-slower: float-slow 10s ease-in-out infinite reverse;
+  --animate-pulse-dot: pulse-dot 1.6s ease-in-out infinite;
+  --animate-aurora-a: aurora-a 16s ease-in-out infinite alternate;
+  --animate-aurora-b: aurora-b 22s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 24s linear infinite;
+  --animate-spin-slower: spin 60s linear infinite;
+  --animate-shine: shine 4.5s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(1.5deg); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.7); }
+  }
+  @keyframes aurora-a {
+    0% { transform: translate(-8%, -4%) scale(1); }
+    100% { transform: translate(10%, 8%) scale(1.25); }
+  }
+  @keyframes aurora-b {
+    0% { transform: translate(6%, 10%) scale(1.15); }
+    100% { transform: translate(-10%, -6%) scale(0.95); }
+  }
+  @keyframes shine {
+    0% { transform: translateX(-130%) skewX(-18deg); }
+    55%, 100% { transform: translateX(230%) skewX(-18deg); }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-navy-950);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-navy-950);
+}
+
+/* Subtle film grain over everything for a premium finish */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+
+  /* Glassmorphism card */
+  .glass {
+    @apply rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.06) inset,
+      0 24px 60px -24px rgb(0 0 0 / 0.65);
+  }
+
+  .glass-strong {
+    @apply rounded-3xl border border-white/15 bg-navy-900/80 backdrop-blur-2xl;
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 0.08) inset,
+      0 32px 80px -28px rgb(0 0 0 / 0.8);
+  }
+
+  /* Coral gradient text (brand accent) */
+  .text-gold-grad {
+    background: linear-gradient(108deg, #fdb78f 8%, #fb9061 36%, #f26b3a 62%, #ffcaa9 92%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Teal gradient text (secondary accent) */
+  .text-teal-grad {
+    background: linear-gradient(108deg, #7fdcec 8%, #25aecb 50%, #1894b0 92%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none;
+  }
+  .btn-gold {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none bg-gradient-to-b from-gold-300 via-gold-500 to-gold-600 text-navy-950;
+    box-shadow:
+      0 0 0 1px rgb(242 107 58 / 0.5),
+      0 10px 30px -8px rgb(242 107 58 / 0.6);
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px rgb(242 107 58 / 0.75),
+      0 18px 46px -10px rgb(242 107 58 / 0.8);
+  }
+  .btn-ghost {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none border border-white/20 bg-white/[0.03] text-ivory backdrop-blur-md;
+  }
+  .btn-ghost:hover {
+    @apply border-gold-400/60 bg-white/[0.07];
+    transform: translateY(-2px);
+  }
+  .btn-lg { @apply px-7 py-3.5 text-[0.95rem]; }
+  .btn-md { @apply px-5 py-2.5 text-sm; }
+
+  /* Kicker label */
+  .kicker {
+    @apply inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-medium tracking-[0.28em] uppercase text-gold-400;
+  }
+  .kicker::before {
+    content: "";
+    @apply h-px w-8 bg-gradient-to-r from-transparent to-gold-400;
+  }
+  .kicker-center::after {
+    content: "";
+    @apply h-px w-8 bg-gradient-to-l from-transparent to-gold-400;
+  }
+
+  /* Section heading */
+  .h-display {
+    @apply font-display font-semibold text-balance;
+  }
+
+  /* Chip */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-xs font-semibold text-mist;
+  }
+  .chip-gold {
+    @apply border-gold-500/30 bg-gold-500/10 text-gold-300;
+  }
+
+  /* Form fields */
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold tracking-wide text-mist;
+  }
+  .field-input {
+    @apply w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm text-ivory placeholder:text-mist-dark outline-none transition-colors;
+  }
+  .field-input:focus {
+    @apply border-gold-400/60 bg-white/[0.07];
+    box-shadow: 0 0 0 3px rgb(232 196 92 / 0.12);
+  }
+
+  /* Live dot */
+  .live-dot {
+    @apply inline-block h-2 w-2 rounded-full bg-red-500 animate-pulse-dot;
+    box-shadow: 0 0 10px 2px rgb(239 68 68 / 0.6);
+  }
+}
+
+/* Aurora background blobs */
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+/* Hide scrollbar on marquee rows */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
