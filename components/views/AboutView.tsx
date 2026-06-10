@@ -9,6 +9,7 @@ import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
 import { FeatureCard, StatBand, CtaBand } from "@/components/blocks";
 import { useTeam, useReviews } from "@/lib/useDmsData";
+import { asset } from "@/lib/asset";
 
 const VALUES: { icon: IconName; title: string; text: string }[] = [
   { icon: "heart", title: "Service to others", text: "A genuine commitment to helping practice owners succeed, consulting and coaching taken to heart." },
@@ -96,7 +97,7 @@ export default function AboutView() {
                 />
                 <div className="glass overflow-hidden !rounded-[2rem] p-2">
                   <Image
-                    src="/assets/naren.jpg"
+                    src={asset("/assets/naren.jpg")}
                     alt="Naren Arulrajah, Founder of Dental Marketing Society"
                     width={600}
                     height={600}

@@ -9,6 +9,7 @@ import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
 import { FeatureCard } from "@/components/blocks";
 import SpeakerForm from "@/components/forms/SpeakerForm";
+import { asset } from "@/lib/asset";
 
 const VALUE_PROPS: { icon: IconName; title: string; text: string }[] = [
   { icon: "users", title: "Engaged Audience", text: "Reach dentists and practice owners actively investing in growing their practices." },
@@ -80,7 +81,7 @@ export default function SpeakerView() {
             <Reveal delay={0.36}>
               <div className="mt-8 flex items-center gap-4">
                 <Image
-                  src="/assets/naren.jpg"
+                  src={asset("/assets/naren.jpg")}
                   alt="Naren Arulrajah"
                   width={52}
                   height={52}
@@ -178,7 +179,7 @@ export default function SpeakerView() {
               <div className="glass overflow-hidden !rounded-[2rem] text-center">
                 <div className="relative aspect-[4/3]">
                   <Image
-                    src="/assets/naren.jpg"
+                    src={asset("/assets/naren.jpg")}
                     alt="Naren Arulrajah"
                     fill
                     className="object-cover object-top"

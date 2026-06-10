@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import Icon, { type IconName } from "@/components/Icon";
 import { SITE } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 interface DropItem {
   href: string;
@@ -172,7 +173,7 @@ export default function Header() {
                   className="absolute -inset-1 -z-10 rounded-[1.1rem] bg-gold-400/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
                 />
                 <Image
-                  src="/assets/logo.png"
+                  src={asset("/assets/logo.png")}
                   alt="Dental Marketing Society"
                   width={150}
                   height={48}

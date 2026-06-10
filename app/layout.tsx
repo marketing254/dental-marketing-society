@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Manrope, IBM_Plex_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SITE } from "@/lib/site";
+import { asset } from "@/lib/asset";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   },
   description:
     "Free, expert-led marketing webinars for dental practice owners. Fill your calendar with new patients, sharpen your marketing, and earn free CE credits live.",
-  icons: { icon: "/assets/logo.png" },
+  icons: { icon: asset("/assets/logo.png") },
   openGraph: {
     type: "website",
     siteName: SITE.name,

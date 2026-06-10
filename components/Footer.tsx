@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Icon from "@/components/Icon";
 import { SITE } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 const COLUMNS: { title: string; links: { href: string; label: string; external?: boolean }[] }[] = [
   {
@@ -48,7 +49,7 @@ export default function Footer() {
             <Link href="/" className="inline-flex">
               <span className="flex items-center rounded-2xl bg-gradient-to-b from-white to-[#f3eee1] px-4 py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.75)] ring-1 ring-gold-400/40">
                 <Image
-                  src="/assets/logo.png"
+                  src={asset("/assets/logo.png")}
                   alt="Dental Marketing Society"
                   width={170}
                   height={54}

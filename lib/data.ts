@@ -1,3 +1,4 @@
+import { asset } from "./asset";
 // Static fallback content. The live Google Sheet (lib/sheets.ts) overrides
 // these at runtime when reachable, exactly like the original site.
 
@@ -92,17 +93,17 @@ export const ARCHIVE: ArchiveItem[] = [
 ];
 
 export const SPEAKERS: Speaker[] = [
-  { name: "Nicole Toudouze", role: "Founder & CEO, Transcendental", photo: "/assets/speaker-nicole.jpg" },
-  { name: "Lori A. Parr, MS, RDH", role: "Founder, Houndstooth Dental Solutions", photo: "/assets/speaker-lori.jpg" },
-  { name: "Dr. Michael J. Goldberg", role: "Founder & CEO · Associate Professor", photo: "/assets/speaker-michael.jpg" },
-  { name: "Dr. Vaheed Shahnam", role: "Founder, Praexis Advisory", photo: "/assets/speaker-vaheed.jpg" },
+  { name: "Nicole Toudouze", role: "Founder & CEO, Transcendental", photo: asset("/assets/speaker-nicole.jpg") },
+  { name: "Lori A. Parr, MS, RDH", role: "Founder, Houndstooth Dental Solutions", photo: asset("/assets/speaker-lori.jpg") },
+  { name: "Dr. Michael J. Goldberg", role: "Founder & CEO · Associate Professor", photo: asset("/assets/speaker-michael.jpg") },
+  { name: "Dr. Vaheed Shahnam", role: "Founder, Praexis Advisory", photo: asset("/assets/speaker-vaheed.jpg") },
 ];
 
 export const TEAM: TeamMember[] = [
   {
     name: "Lester",
     role: "Assistant Marketing Manager",
-    photo: "/assets/team-lester.jpg",
+    photo: asset("/assets/team-lester.jpg"),
     bio: "Lester drives growth at DMS through strategic partnerships and event management. With a people-first approach, he helps dental practice owners build leadership confidence and connect with the practical resources they need to grow.",
   },
   {
@@ -113,7 +114,7 @@ export const TEAM: TeamMember[] = [
   {
     name: "Don Adeesha Achalanka",
     role: "Host & Moderator",
-    photo: "/assets/team-adeesha.jpg",
+    photo: asset("/assets/team-adeesha.jpg"),
     bio: "Adeesha hosts and moderates our webinars and live conversations across platforms. Drawing on his broadcasting experience, he helps speakers share their expertise in a credible, engaging way that keeps our dental audience informed and builds their trust.",
   },
 ];
@@ -123,21 +124,21 @@ export const REVIEWS: Review[] = [
     context: "home",
     name: "[Dentist Name]",
     firm: "[Practice Name]",
-    photo: "/assets/review-1.jpg",
+    photo: asset("/assets/review-1.jpg"),
     text: "Informative and practical, I walked away with marketing ideas I could put to work in my practice the very next week.",
   },
   {
     context: "home",
     name: "[Dentist Name]",
     firm: "[Practice Name]",
-    photo: "/assets/review-2.jpg",
+    photo: asset("/assets/review-2.jpg"),
     text: "The content was clear, actionable, and genuinely useful for a practice owner. Easily the best free webinar I've attended.",
   },
   {
     context: "home",
     name: "[Dentist Name]",
     firm: "[Practice Name]",
-    photo: "/assets/review-3.jpg",
+    photo: asset("/assets/review-3.jpg"),
     text: "Great speakers and real strategies, not fluff. The CE credits are a wonderful bonus on top of everything I learned.",
   },
   {
@@ -195,10 +196,10 @@ export const FAQS: Faq[] = [
 ];
 
 export const PARTNERS = [
-  { name: "AADOM", logo: "/assets/media-aadom.jpg" },
-  { name: "Dentistry Today", logo: "/assets/media-dentistrytoday.jpg" },
-  { name: "Dentistry IQ", logo: "/assets/media-dentistryiq.jpg" },
-  { name: "Oral Health", logo: "/assets/media-oralhealth.jpg" },
-  { name: "Data Driven Dentistry", logo: "/assets/media-datadriven.jpg" },
-  { name: "The Dental Geek", logo: "/assets/media-dentalgeek.jpg" },
+  { name: "AADOM", logo: asset("/assets/media-aadom.jpg") },
+  { name: "Dentistry Today", logo: asset("/assets/media-dentistrytoday.jpg") },
+  { name: "Dentistry IQ", logo: asset("/assets/media-dentistryiq.jpg") },
+  { name: "Oral Health", logo: asset("/assets/media-oralhealth.jpg") },
+  { name: "Data Driven Dentistry", logo: asset("/assets/media-datadriven.jpg") },
+  { name: "The Dental Geek", logo: asset("/assets/media-dentalgeek.jpg") },
 ];
