@@ -165,7 +165,12 @@ export default function Header() {
               aria-label="Dental Marketing Society home"
               className="group shrink-0"
             >
-              <span className="flex items-center rounded-2xl bg-ivory px-3.5 py-2 shadow-[0_8px_24px_-10px_rgb(0_0_0/0.6)] ring-1 ring-black/5 transition-transform duration-300 group-hover:-translate-y-0.5">
+              <span className="relative flex items-center rounded-2xl bg-gradient-to-b from-white to-[#f3eee1] px-4 py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.75)] ring-1 ring-gold-400/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_38px_-12px_rgba(212,168,47,0.55)] group-hover:ring-gold-400/70">
+                {/* soft gold glow behind the chip */}
+                <span
+                  aria-hidden
+                  className="absolute -inset-1 -z-10 rounded-[1.1rem] bg-gold-400/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
+                />
                 <Image
                   src="/assets/logo.png"
                   alt="Dental Marketing Society"

@@ -46,9 +46,8 @@ export function SectionHead({
 export function Aurora() {
   return (
     <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-      <div className="aurora-blob animate-aurora-a left-[-10%] top-[-20%] h-[60vh] w-[55vw] bg-navy-600/50" />
-      <div className="aurora-blob animate-aurora-b right-[-12%] top-[10%] h-[55vh] w-[45vw] bg-gold-600/15" />
-      <div className="aurora-blob animate-aurora-a bottom-[-25%] left-[20%] h-[50vh] w-[50vw] bg-teal-400/8" />
+      <div className="aurora-blob animate-aurora-a left-[-10%] top-[-20%] h-[58vh] w-[52vw] bg-navy-600/35" />
+      <div className="aurora-blob animate-aurora-b right-[-12%] top-[8%] h-[50vh] w-[42vw] bg-gold-600/10" />
     </div>
   );
 }

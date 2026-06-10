@@ -17,27 +17,27 @@
   --color-navy-700: #1b3454;
   --color-navy-600: #244670;
 
-  /* Coral / orange accent (the "DENTAL" mark) */
-  --color-gold-200: #ffe0cd;
-  --color-gold-300: #fdb78f;
-  --color-gold-400: #fb9061;
-  --color-gold-500: #f26b3a;
-  --color-gold-600: #d6521f;
+  /* Gold accent (primary) */
+  --color-gold-200: #f6e3a8;
+  --color-gold-300: #f0d489;
+  --color-gold-400: #e8c45c;
+  --color-gold-500: #d4a82f;
+  --color-gold-600: #b8901f;
 
-  /* Explicit coral aliases for clarity in new code */
-  --color-coral-300: #fdb78f;
-  --color-coral-400: #fb9061;
-  --color-coral-500: #f26b3a;
-  --color-coral-600: #d6521f;
+  /* Coral aliases kept pointing at gold so older class names stay on-brand */
+  --color-coral-300: #f0d489;
+  --color-coral-400: #e8c45c;
+  --color-coral-500: #d4a82f;
+  --color-coral-600: #b8901f;
 
-  --color-ivory: #f6f3ec;
-  --color-mist: #a3b4c9;
-  --color-mist-dark: #708399;
+  --color-ivory: #f8f6f0;
+  --color-mist: #cdd8e6;
+  --color-mist-dark: #9fb0c5;
 
-  /* Teal (the figures + swoosh) */
-  --color-teal-300: #5fd0e2;
-  --color-teal-400: #25aecb;
-  --color-teal-500: #1894b0;
+  /* Teal — used very sparingly as a quiet secondary (the logo figures) */
+  --color-teal-300: #6fcfde;
+  --color-teal-400: #2fa9c4;
+  --color-teal-500: #1d8aa6;
 
   /* ----- Animations ----- */
   --animate-marquee: marquee 36s linear infinite;
@@ -49,6 +49,7 @@
   --animate-spin-slow: spin 24s linear infinite;
   --animate-spin-slower: spin 60s linear infinite;
   --animate-shine: shine 4.5s ease-in-out infinite;
+  --animate-text-shimmer: text-shimmer 7s linear infinite;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -73,6 +74,9 @@
   @keyframes shine {
     0% { transform: translateX(-130%) skewX(-18deg); }
     55%, 100% { transform: translateX(230%) skewX(-18deg); }
+  }
+  @keyframes text-shimmer {
+    to { background-position: 200% center; }
   }
 }
 
@@ -104,7 +108,7 @@ body::after {
   inset: 0;
   z-index: 70;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -128,13 +132,23 @@ body::after {
       0 32px 80px -28px rgb(0 0 0 / 0.8);
   }
 
-  /* Coral gradient text (brand accent) */
+  /* Gold gradient text (brand accent) */
   .text-gold-grad {
-    background: linear-gradient(108deg, #fdb78f 8%, #fb9061 36%, #f26b3a 62%, #ffcaa9 92%);
+    background: linear-gradient(108deg, #f6e3a8 8%, #e8c45c 40%, #c89b2a 62%, #f0d489 92%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+  /* Gold gradient text with a slow shimmer sweep (for hero headings) */
+  .text-shimmer {
+    background: linear-gradient(110deg, #d4a82f 0%, #e8c45c 30%, #fff4cf 50%, #e8c45c 70%, #d4a82f 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-text-shimmer);
+  }
+
   /* Teal gradient text (secondary accent) */
   .text-teal-grad {
     background: linear-gradient(108deg, #7fdcec 8%, #25aecb 50%, #1894b0 92%);
@@ -148,16 +162,16 @@ body::after {
     @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none;
   }
   .btn-gold {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none bg-gradient-to-b from-gold-300 via-gold-500 to-gold-600 text-navy-950;
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none bg-gradient-to-b from-gold-200 via-gold-400 to-gold-600 text-navy-950;
     box-shadow:
-      0 0 0 1px rgb(242 107 58 / 0.5),
-      0 10px 30px -8px rgb(242 107 58 / 0.6);
+      0 0 0 1px rgb(232 196 92 / 0.5),
+      0 10px 30px -8px rgb(212 168 47 / 0.55);
   }
   .btn-gold:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 0 0 1px rgb(242 107 58 / 0.75),
-      0 18px 46px -10px rgb(242 107 58 / 0.8);
+      0 0 0 1px rgb(232 196 92 / 0.72),
+      0 18px 46px -10px rgb(212 168 47 / 0.78);
   }
   .btn-ghost {
     @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 select-none border border-white/20 bg-white/[0.03] text-ivory backdrop-blur-md;

@@ -46,7 +46,7 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="inline-flex">
-              <span className="flex items-center rounded-2xl bg-ivory px-4 py-2.5 shadow-[0_8px_24px_-10px_rgb(0_0_0/0.6)] ring-1 ring-black/5">
+              <span className="flex items-center rounded-2xl bg-gradient-to-b from-white to-[#f3eee1] px-4 py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.75)] ring-1 ring-gold-400/40">
                 <Image
                   src="/assets/logo.png"
                   alt="Dental Marketing Society"

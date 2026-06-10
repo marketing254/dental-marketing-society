@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Icon from "@/components/Icon";
-import BeamField from "@/components/motion/BeamField";
+import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import { Section } from "@/components/Section";
 import ContactForm from "@/components/forms/ContactForm";
@@ -13,7 +13,7 @@ export default function ContactView() {
     <>
       {/* ============ HERO + FORM ============ */}
       <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[170px] sm:pt-[190px]">
-        <BeamField />
+        <FlowLines />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         <div className="container-x relative grid items-center gap-14 lg:grid-cols-2">
           <div>

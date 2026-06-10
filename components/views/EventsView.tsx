@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Icon from "@/components/Icon";
-import BeamField from "@/components/motion/BeamField";
+import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
@@ -21,7 +21,7 @@ export default function EventsView() {
     <>
       {/* ============ HERO ============ */}
       <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[170px] sm:pt-[190px]">
-        <BeamField />
+        <FlowLines />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         <div className="container-x relative grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
@@ -31,7 +31,7 @@ export default function EventsView() {
             <Reveal delay={0.1}>
               <h1 className="h-display mt-5 text-5xl leading-[1.05] sm:text-6xl">
                 Live webinars &amp; the full{" "}
-                <em className="text-gold-grad not-italic">replay archive</em>
+                <em className="text-shimmer not-italic">replay archive</em>
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
@@ -72,7 +72,7 @@ export default function EventsView() {
           />
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             {events.map((ev, i) => (
-              <EventCard key={ev.title} event={ev} delay={i * 0.1} />
+              <EventCard key={ev.title} event={ev} delay={i * 0.1} index={i} />
             ))}
           </div>
         </div>

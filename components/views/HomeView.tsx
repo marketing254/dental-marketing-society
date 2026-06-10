@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import Icon, { type IconName } from "@/components/Icon";
-import Hero3D from "@/components/three/Hero3D";
-import HeroShowcase from "@/components/HeroShowcase";
+import FlowLines from "@/components/motion/FlowLines";
+import EventCover from "@/components/EventCover";
 import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
-import { Section, SectionHead, Aurora } from "@/components/Section";
+import { Section, SectionHead } from "@/components/Section";
 import {
   EventCard,
   FeatureCard,
@@ -43,91 +42,44 @@ export default function HomeView() {
   return (
     <>
       {/* ============ HERO ============ */}
-      <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[170px] sm:pt-[190px]">
-        <Aurora />
-        <Hero3D className="opacity-80" />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-navy-950 to-transparent"
-        />
-        <div className="container-x relative grid items-center gap-16 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <Reveal>
-              <span className="kicker">Free webinars for dental practice owners</span>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h1 className="h-display mt-5 text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">
-                Marketing Webinars For{" "}
-                <em className="text-gold-grad not-italic">Dental Practice</em>{" "}
-                Owners
-              </h1>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-mist">
-                Fill your calendar with new patients and expand your marketing
-                knowledge. Learn the digital strategies that grow modern dental
-                practices, straight from the people who do it every day.
-              </p>
-            </Reveal>
-            <Reveal delay={0.26}>
-              <p className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold-300">
-                <Icon name="spark" size={16} /> Join our exclusive partnership and start relaxing today!
-              </p>
-            </Reveal>
-            <Reveal delay={0.32}>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link href="/events#upcoming" className="btn-gold btn-lg">
-                  Register for a Webinar <Icon name="arrow" size={16} />
-                </Link>
-                <Link href="/audit" className="btn-ghost btn-lg">
-                  Book a Free Meeting
-                </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={0.4}>
-              <div className="mt-10 flex items-center gap-4">
-                <div className="flex -space-x-3">
-                  {["/assets/review-1.jpg", "/assets/speaker-1.jpg", "/assets/review-3.jpg", "/assets/speaker-3.jpg"].map(
-                    (src) => (
-                      <Image
-                        key={src}
-                        src={src}
-                        alt=""
-                        width={44}
-                        height={44}
-                        className="h-11 w-11 rounded-full border-2 border-navy-900 object-cover"
-                      />
-                    )
-                  )}
-                </div>
-                <div>
-                  <div className="text-gold-400">★★★★★</div>
-                  <small className="text-xs text-mist">
-                    Loved by dental practice owners &amp; teams
-                  </small>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="lg:pl-4">
-            <HeroShowcase />
-          </div>
+      <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[180px] text-center sm:pt-[210px]">
+        <FlowLines />
+        <div className="container-x relative mx-auto max-w-4xl">
+          <Reveal>
+            <span className="kicker kicker-center">Free webinars for dental practice owners</span>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h1 className="h-display mx-auto mt-6 max-w-4xl text-5xl leading-[1.06] sm:text-6xl lg:text-7xl">
+              Marketing Webinars For{" "}
+              <em className="text-shimmer not-italic">Dental Practice</em> Owners
+            </h1>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-mist">
+              Fill your calendar with new patients and expand your marketing
+              knowledge. Learn the digital strategies that grow modern dental
+              practices, straight from the people who do it every day.
+            </p>
+          </Reveal>
+          <Reveal delay={0.3}>
+            <div className="mt-9 flex flex-wrap justify-center gap-4">
+              <Link href="/events#upcoming" className="btn-gold btn-lg">
+                Register for a Webinar <Icon name="arrow" size={16} />
+              </Link>
+              <Link href="/audit" className="btn-ghost btn-lg">
+                Book a Free Meeting
+              </Link>
+            </div>
+          </Reveal>
+          <Reveal delay={0.4}>
+            <div className="mt-8 flex items-center justify-center gap-2.5">
+              <span className="text-gold-400">★★★★★</span>
+              <span className="text-sm text-mist">
+                Loved by dental practice owners &amp; teams
+              </span>
+            </div>
+          </Reveal>
         </div>
-
-        {/* Scroll cue */}
-        <motion.a
-          href="#services"
-          aria-label="Scroll down"
-          className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[0.65rem] tracking-[0.3em] text-mist uppercase lg:flex"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2.2 }}
-        >
-          <span className="flex h-9 w-6 items-start justify-center rounded-full border border-white/25 p-1.5">
-            <span className="h-2 w-1 rounded-full bg-gold-400" />
-          </span>
-          Scroll
-        </motion.a>
       </section>
 
       {/* ============ SERVICES ============ */}
@@ -196,13 +148,13 @@ export default function HomeView() {
                   className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-gold-500/25 via-transparent to-teal-400/15 blur-2xl"
                 />
                 <div className="glass overflow-hidden !rounded-[2rem] p-2">
-                  <Image
-                    src="/assets/webinar-navigating.jpg"
-                    alt="Dental Marketing Society expert panel webinar"
-                    width={1200}
-                    height={630}
-                    className="w-full rounded-[1.6rem] object-cover"
-                  />
+                  <div className="relative aspect-[1200/630] overflow-hidden rounded-[1.6rem]">
+                    <EventCover
+                      title="Live expert webinars, every month"
+                      label="Education that fills chairs"
+                      index={1}
+                    />
+                  </div>
                 </div>
                 <div className="glass absolute -bottom-5 left-8 flex items-center gap-2 !rounded-full px-5 py-3 text-sm font-bold text-gold-300">
                   <Icon name="award" size={16} /> PACE CE Accredited
@@ -266,7 +218,7 @@ export default function HomeView() {
           />
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             {events.map((ev, i) => (
-              <EventCard key={ev.title} event={ev} delay={i * 0.1} />
+              <EventCard key={ev.title} event={ev} delay={i * 0.1} index={i} />
             ))}
           </div>
         </div>

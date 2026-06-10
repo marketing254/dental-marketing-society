@@ -5,6 +5,8 @@ export interface DmsEvent {
   day: string;
   month: string;
   dateLabel: string;
+  /** Precise start datetime (ISO 8601) used by the hero countdown timer. */
+  iso?: string;
   title: string;
   description: string;
   time?: string;
@@ -52,22 +54,22 @@ export const UPCOMING_EVENTS: DmsEvent[] = [
     day: "11",
     month: "Jun",
     dateLabel: "Jun 11, 2026",
+    iso: "2026-06-11T19:00:00-04:00",
     title: "Dental Marketing & Dental Insights",
     description:
       "In partnership with Dental Intelligence, practical marketing strategies and data-driven insights for your practice.",
     time: "7:00 to 9:30 PM ET",
     panelists: ["Steven Jensen", "Gerilyn Alfe", "Naren Arulrajah"],
-    image: "/assets/webinar-insights.jpg",
     registerUrl: "/audit",
   },
   {
     day: "22",
     month: "Jun",
     dateLabel: "Jun 22, 2026",
+    iso: "2026-06-22T19:00:00-04:00",
     title: "The Dental Workforce Reset (2026)",
     description:
       "Solving the hygiene & assistant bottleneck, without burning out your team.",
-    image: "/assets/webinar-workforce.jpg",
     registerUrl: "/audit",
   },
 ];

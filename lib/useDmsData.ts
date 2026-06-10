@@ -47,6 +47,7 @@ export function useUpcomingEvents(): DmsEvent[] {
           day: pick(r, ["day"]) || (d ? String(d.getDate()) : ""),
           month: shortMonth(dateRaw) || (pick(r, ["month_year"]).split(" ")[0] || "").slice(0, 3),
           dateLabel: formatSheetDate(dateRaw),
+          iso: d ? d.toISOString() : undefined,
           title: pick(r, ["title"]),
           description: pick(r, ["description", "subtitle"]),
           time: pick(r, ["time"]) || undefined,

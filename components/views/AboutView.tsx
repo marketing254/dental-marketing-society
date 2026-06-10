@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Icon, { type IconName } from "@/components/Icon";
-import BeamField from "@/components/motion/BeamField";
+import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
@@ -33,7 +33,7 @@ export default function AboutView() {
     <>
       {/* ============ HERO ============ */}
       <section className="relative -mt-[110px] overflow-hidden pb-20 pt-[170px] text-center sm:pt-[190px]">
-        <BeamField />
+        <FlowLines />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         <div className="container-x relative mx-auto max-w-4xl">
           <Reveal>
@@ -41,7 +41,7 @@ export default function AboutView() {
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="h-display mt-5 text-5xl leading-[1.06] sm:text-6xl lg:text-7xl">
-              The best in <em className="text-gold-grad not-italic">dental digital marketing</em> education
+              The best in <em className="text-shimmer not-italic">dental digital marketing</em> education
             </h1>
           </Reveal>
           <Reveal delay={0.2}>

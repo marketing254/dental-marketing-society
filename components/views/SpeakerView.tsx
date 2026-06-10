@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Icon, { type IconName } from "@/components/Icon";
-import BeamField from "@/components/motion/BeamField";
+import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
@@ -49,7 +49,7 @@ export default function SpeakerView() {
     <>
       {/* ============ HERO + APPLICATION FORM ============ */}
       <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[170px] sm:pt-[190px]">
-        <BeamField />
+        <FlowLines />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         <div className="container-x relative grid items-center gap-14 lg:grid-cols-2">
           <div>
@@ -59,7 +59,7 @@ export default function SpeakerView() {
             <Reveal delay={0.1}>
               <h1 className="h-display mt-5 text-5xl leading-[1.06] sm:text-6xl">
                 Share your expertise with{" "}
-                <em className="text-gold-grad not-italic">dental practice owners</em>
+                <em className="text-shimmer not-italic">dental practice owners</em>
               </h1>
             </Reveal>
             <Reveal delay={0.2}>

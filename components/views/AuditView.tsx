@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Icon, { type IconName } from "@/components/Icon";
-import BeamField from "@/components/motion/BeamField";
+import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
@@ -36,7 +36,7 @@ export default function AuditView() {
     <>
       {/* ============ HERO + SCHEDULER ============ */}
       <section id="book" className="relative -mt-[110px] overflow-hidden pb-24 pt-[160px] sm:pt-[180px]">
-        <BeamField />
+        <FlowLines />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         <div className="container-x relative grid items-start gap-14 lg:grid-cols-[1fr_1fr]">
           <div className="pt-4">
@@ -56,7 +56,7 @@ export default function AuditView() {
             <Reveal delay={0.12}>
               <h1 className="h-display mt-6 text-5xl leading-[1.06] sm:text-6xl">
                 Are your patients finding you for{" "}
-                <em className="text-gold-grad not-italic">all the right reasons?</em>
+                <em className="text-shimmer not-italic">all the right reasons?</em>
               </h1>
             </Reveal>
             <Reveal delay={0.2}>

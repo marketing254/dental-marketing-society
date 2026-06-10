@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Icon from "@/components/Icon";
-import BeamField from "@/components/motion/BeamField";
+import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import { Section, SectionHead } from "@/components/Section";
 import { FeatureCard } from "@/components/blocks";
@@ -14,7 +14,7 @@ export default function ResourcesView() {
     <>
       {/* ============ COMING SOON HERO ============ */}
       <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[170px] text-center sm:pt-[190px]">
-        <BeamField />
+        <FlowLines />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         <div className="container-x relative mx-auto max-w-3xl">
           <Reveal>

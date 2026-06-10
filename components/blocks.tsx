@@ -6,30 +6,34 @@ import { motion } from "framer-motion";
 import Icon, { type IconName } from "@/components/Icon";
 import TiltCard from "@/components/motion/TiltCard";
 import Reveal from "@/components/motion/Reveal";
+import CountUp from "@/components/motion/CountUp";
+import EventCover from "@/components/EventCover";
 import type { DmsEvent, Faq } from "@/lib/data";
 
 /* ---------- Event card ---------- */
 
-export function EventCard({ event, delay = 0 }: { event: DmsEvent; delay?: number }) {
+export function EventCard({
+  event,
+  delay = 0,
+  index = 0,
+}: {
+  event: DmsEvent;
+  delay?: number;
+  index?: number;
+}) {
   return (
     <Reveal delay={delay}>
       <TiltCard className="h-full">
         <article className="glass flex h-full flex-col overflow-hidden !rounded-3xl">
-          {event.image && (
-            <div className="relative aspect-[1200/630] overflow-hidden">
-              <Image
-                src={event.image}
-                alt={event.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 to-transparent" />
-              <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-navy-950/70 px-3 py-1.5 text-[0.7rem] font-bold tracking-wider text-ivory uppercase backdrop-blur-md">
-                <span className="live-dot" /> Live Webinar
-              </span>
-            </div>
-          )}
+          <div className="relative aspect-[1200/630] overflow-hidden">
+            <EventCover
+              title={event.title}
+              label="Live Webinar"
+              day={event.day}
+              month={event.month}
+              index={index}
+            />
+          </div>
           <div className="flex flex-1 flex-col p-6">
             <div className="flex items-start gap-4">
               <div className="flex h-16 w-14 shrink-0 flex-col items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/10">
@@ -99,7 +103,7 @@ export function HeroEventCard({ event }: { event: DmsEvent }) {
         transition={{ delay: 1.2, duration: 0.6 }}
         className="glass animate-float-slower absolute -right-5 bottom-24 z-10 hidden items-center gap-3 !rounded-2xl px-4 py-3 lg:flex"
       >
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-teal-400/30 bg-teal-400/10 text-teal-400">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] text-gold-300">
           <Icon name="trending" size={18} />
         </span>
         <span className="text-sm font-bold leading-tight">
@@ -110,22 +114,14 @@ export function HeroEventCard({ event }: { event: DmsEvent }) {
 
       <TiltCard maxTilt={5}>
         <div className="glass-strong overflow-hidden">
-          {event.image && (
-            <div className="relative aspect-[1200/630]">
-              <Image
-                src={event.image}
-                alt={event.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 480px"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent" />
-              <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-navy-950/70 px-3.5 py-1.5 text-[0.7rem] font-bold tracking-wider uppercase backdrop-blur-md">
-                <span className="live-dot" /> Next live webinar
-              </span>
-            </div>
-          )}
+          <div className="relative aspect-[1200/630]">
+            <EventCover
+              title={event.title}
+              label="Next live webinar"
+              day={event.day}
+              month={event.month}
+            />
+          </div>
           <div className="p-6 sm:p-7">
             <div className="flex items-center justify-between text-sm">
               <span className="inline-flex items-center gap-2 font-semibold text-gold-300">
@@ -200,7 +196,10 @@ export function StatBand({ stats }: { stats: { value: string; label: string }[] 
         <div className="relative grid grid-cols-2 divide-white/8 lg:grid-cols-4 lg:divide-x">
           {stats.map((s) => (
             <div key={s.label} className="px-6 py-10 text-center">
-              <b className="text-gold-grad font-display block text-4xl font-bold sm:text-5xl">{s.value}</b>
+              <CountUp
+                value={s.value}
+                className="text-gold-grad font-display block text-4xl font-bold sm:text-5xl"
+              />
               <span className="mt-2 block text-xs font-semibold tracking-wider text-mist uppercase">
                 {s.label}
               </span>
