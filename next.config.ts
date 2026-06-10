@@ -1,27 +1,25 @@
 import type { NextConfig } from "next";
 
 /**
- * Static export so the site can be hosted on GitHub Pages (or any static host).
+ * Static export for GitHub Pages, served straight from the `main` branch's
+ * `/docs` folder (Settings → Pages → Deploy from a branch → main → /docs).
  *
- * basePath/assetPrefix:
- *  - On a *project* repo, GitHub Pages serves the site under /<repo-name>, so we
- *    derive the base path from GITHUB_REPOSITORY automatically in CI.
- *  - On a *user/org* site (<name>.github.io) or a custom domain, no base path is
- *    needed — that's detected, and you can always override with
- *    NEXT_PUBLIC_BASE_PATH (set it to "" to force the root).
+ * The repo is a *project* site, so it's published under
+ *   https://marketing254.github.io/dental-marketing-society/
+ * which means every asset needs the "/dental-marketing-society" base path.
+ * That's applied for production builds only, so `npm run dev` stays at the root.
+ * Override with NEXT_PUBLIC_BASE_PATH if you rename the repo or use a domain.
  */
-const repo = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "";
-const isUserSite = repo.endsWith(".github.io");
-const inferredBase =
-  process.env.GITHUB_ACTIONS && repo && !isUserSite ? `/${repo}` : "";
+const REPO_BASE = "/dental-marketing-society";
 const basePath =
   process.env.NEXT_PUBLIC_BASE_PATH !== undefined
     ? process.env.NEXT_PUBLIC_BASE_PATH
-    : inferredBase;
+    : process.env.NODE_ENV === "production"
+      ? REPO_BASE
+      : "";
 
 const nextConfig: NextConfig = {
   output: "export",
-  // next/image can't optimize on a static host.
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -30,8 +28,6 @@ const nextConfig: NextConfig = {
     ],
   },
   basePath: basePath || undefined,
-  assetPrefix: basePath || undefined,
-  // Emit /about/index.html etc. so GitHub Pages serves clean URLs.
   trailingSlash: true,
 };
 
