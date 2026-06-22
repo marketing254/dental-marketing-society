@@ -1,22 +1,20 @@
 import type { NextConfig } from "next";
 
 /**
- * Static export for GitHub Pages, served straight from the `main` branch's
- * `/docs` folder (Settings → Pages → Deploy from a branch → main → /docs).
+ * Static export for GitHub Pages.
  *
- * The repo is a *project* site, so it's published under
+ * The site is served from the custom domain www.dentalmarketingsociety.com,
+ * which is published at the *root* — so there is NO base path (assets resolve
+ * from "/"). The custom domain is pinned by public/CNAME.
+ *
+ * If you ever revert to the bare project URL
  *   https://marketing254.github.io/dental-marketing-society/
- * which means every asset needs the "/dental-marketing-society" base path.
- * That's applied for production builds only, so `npm run dev` stays at the root.
- * Override with NEXT_PUBLIC_BASE_PATH if you rename the repo or use a domain.
+ * set NEXT_PUBLIC_BASE_PATH="/dental-marketing-society" for the build.
  */
-const REPO_BASE = "/dental-marketing-society";
 const basePath =
   process.env.NEXT_PUBLIC_BASE_PATH !== undefined
     ? process.env.NEXT_PUBLIC_BASE_PATH
-    : process.env.NODE_ENV === "production"
-      ? REPO_BASE
-      : "";
+    : "";
 
 const nextConfig: NextConfig = {
   output: "export",
