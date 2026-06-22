@@ -162,8 +162,9 @@ function looksJunk(text?: string): boolean {
 }
 
 export function spamBlock(form: HTMLFormElement, ...names: (string | undefined)[]): boolean {
-  // 1) Honeypot — a hidden field only bots fill.
-  const hp = form.querySelector<HTMLInputElement>('input[name="website"]');
+  // 1) Honeypot — a hidden field only bots fill. (Named "dms_hp" rather than
+  //    "website" so browser autofill never populates it and blocks real users.)
+  const hp = form.querySelector<HTMLInputElement>('input[name="dms_hp"], .dms-hp input');
   if (hp && hp.value.trim()) return true;
   // 2) Submitted faster than a human could (sub-second) — likely a bot.
   if (Date.now() - loadTs < 800) return true;
