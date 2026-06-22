@@ -17,17 +17,33 @@ export interface DmsEvent {
 }
 
 export interface ArchiveItem {
-  date: string;
-  title: string;
   slug: string;
+  title: string;
+  subtitle?: string;
+  date: string;
+  duration?: string;
+  category?: string;
   vimeo?: string;
+  image?: string;
+  summary?: string;
+  description?: string; // may be a Google Doc URL (full write-up)
+  transcript?: string; // Google Doc URL
+}
+
+export interface SpeakerContact {
+  label: string;
+  url: string;
+  platform: string; // normalized key: linkedin | instagram | facebook | website | youtube | twitter | email
 }
 
 export interface Speaker {
   name: string;
   role: string;
   photo?: string;
-  linkedin?: string;
+  bio?: string;
+  topic?: string;
+  linkedin?: string; // kept for the home-page preview
+  contacts?: SpeakerContact[];
 }
 
 export interface TeamMember {
@@ -42,6 +58,9 @@ export interface Review {
   firm: string;
   text: string;
   photo?: string;
+  rating?: number;
+  platform?: string;
+  date?: string;
   context: "home" | "about" | "audit";
 }
 
@@ -93,10 +112,54 @@ export const ARCHIVE: ArchiveItem[] = [
 ];
 
 export const SPEAKERS: Speaker[] = [
-  { name: "Nicole Toudouze", role: "Founder & CEO, Transcendental", photo: asset("/assets/speaker-nicole.jpg") },
-  { name: "Lori A. Parr, MS, RDH", role: "Founder, Houndstooth Dental Solutions", photo: asset("/assets/speaker-lori.jpg") },
-  { name: "Dr. Michael J. Goldberg", role: "Founder & CEO · Associate Professor", photo: asset("/assets/speaker-michael.jpg") },
-  { name: "Dr. Vaheed Shahnam", role: "Founder, Praexis Advisory", photo: asset("/assets/speaker-vaheed.jpg") },
+  {
+    name: "Nicole Toudouze",
+    role: "Founder & CEO, Transcendental",
+    photo: asset("/assets/speaker-nicole.jpg"),
+    bio: "Nicole is a practice-growth strategist who helps dental teams turn marketing into predictable new-patient flow. Over 15 years she has coached hundreds of owners on the systems behind sustainable growth, from front-desk conversion to community brand-building.",
+    topic: "Filling the Schedule: A Repeatable New-Patient System",
+    contacts: [
+      { label: "LinkedIn", url: "https://www.linkedin.com/", platform: "linkedin" },
+      { label: "Instagram", url: "https://www.instagram.com/", platform: "instagram" },
+      { label: "Website", url: "https://productivedentist.com/", platform: "website" },
+    ],
+  },
+  {
+    name: "Lori A. Parr, MS, RDH",
+    role: "Founder, Houndstooth Dental Solutions",
+    photo: asset("/assets/speaker-lori.jpg"),
+    bio: "Lori blends clinical experience as a registered dental hygienist with operations consulting to help practices run smoother and more profitably. She is known for practical, team-first systems that reduce burnout while lifting production.",
+    topic: "From Chaos to Consistency: Systems That Run Your Practice",
+    contacts: [
+      { label: "LinkedIn", url: "https://www.linkedin.com/", platform: "linkedin" },
+      { label: "Facebook", url: "https://www.facebook.com/", platform: "facebook" },
+      { label: "Website", url: "https://productivedentist.com/", platform: "website" },
+    ],
+  },
+  {
+    name: "Dr. Michael J. Goldberg",
+    role: "Founder & CEO, Associate Professor",
+    photo: asset("/assets/speaker-michael.jpg"),
+    bio: "Dr. Goldberg bridges academic dentistry and real-world practice ownership, teaching the leadership and case-acceptance skills that grow thriving offices. His sessions translate research into everyday actions teams can apply immediately.",
+    topic: "Treatment Acceptance: Communicate So Patients Say Yes",
+    contacts: [
+      { label: "LinkedIn", url: "https://www.linkedin.com/", platform: "linkedin" },
+      { label: "Website", url: "https://productivedentist.com/", platform: "website" },
+    ],
+  },
+  {
+    name: "Dr. Vaheed Shahnam",
+    role: "Founder, Praexis Advisory",
+    photo: asset("/assets/speaker-vaheed.jpg"),
+    bio: "Dr. Shahnam advises practice owners on finance, profitability, and long-term wealth-building. He helps dentists understand their numbers and make confident decisions that protect margin and fund growth.",
+    topic: "Money Matters: Protect Profit and Build Wealth",
+    contacts: [
+      { label: "LinkedIn", url: "https://www.linkedin.com/", platform: "linkedin" },
+      { label: "Instagram", url: "https://www.instagram.com/", platform: "instagram" },
+      { label: "Facebook", url: "https://www.facebook.com/", platform: "facebook" },
+      { label: "Website", url: "https://productivedentist.com/", platform: "website" },
+    ],
+  },
 ];
 
 export const TEAM: TeamMember[] = [

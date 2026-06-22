@@ -16,24 +16,29 @@ export function EventCard({
   event,
   delay = 0,
   index = 0,
+  href,
 }: {
   event: DmsEvent;
   delay?: number;
   index?: number;
+  href?: string;
 }) {
+  const cover = (
+    <div className="relative aspect-[1200/630] overflow-hidden">
+      <EventCover
+        title={event.title}
+        label="Live Webinar"
+        day={event.day}
+        month={event.month}
+        index={index}
+      />
+    </div>
+  );
   return (
     <Reveal delay={delay}>
       <TiltCard className="h-full">
         <article className="glass flex h-full flex-col overflow-hidden !rounded-3xl">
-          <div className="relative aspect-[1200/630] overflow-hidden">
-            <EventCover
-              title={event.title}
-              label="Live Webinar"
-              day={event.day}
-              month={event.month}
-              index={index}
-            />
-          </div>
+          {href ? <Link href={href} className="group block">{cover}</Link> : cover}
           <div className="flex flex-1 flex-col p-6">
             <div className="flex items-start gap-4">
               <div className="flex h-16 w-14 shrink-0 flex-col items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/10">
@@ -42,7 +47,15 @@ export function EventCard({
                   {event.month}
                 </span>
               </div>
-              <h3 className="h-display pt-1 text-2xl leading-snug">{event.title}</h3>
+              <h3 className="h-display pt-1 text-2xl leading-snug">
+                {href ? (
+                  <Link href={href} className="transition-colors hover:text-gold-200">
+                    {event.title}
+                  </Link>
+                ) : (
+                  event.title
+                )}
+              </h3>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-mist">{event.description}</p>
             {event.panelists && event.panelists.length > 0 && (

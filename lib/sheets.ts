@@ -19,8 +19,12 @@ export type SheetRow = Record<string, string>;
 
 export async function fetchSheet(sheetName: string): Promise<SheetRow[]> {
   if (!DMS_SHEET_ID) return [];
-  const url = `https://docs.google.com/spreadsheets/d/${DMS_SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=${encodeURIComponent(sheetName)}`;
-  const res = await fetch(url);
+  // Cache-bust + no-store so edits in the sheet show on the next page load
+  // instead of being served from a stale cache.
+  const url = `https://docs.google.com/spreadsheets/d/${DMS_SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=${encodeURIComponent(
+    sheetName
+  )}&_=${Date.now()}`;
+  const res = await fetch(url, { cache: "no-store" });
   const text = await res.text();
   const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
   if (!match) return [];
@@ -108,6 +112,21 @@ export function shortMonth(str: string): string {
   return d ? d.toLocaleDateString("en-US", { month: "short" }) : "";
 }
 
+// Sheets stores a duration as a time-of-day value, e.g. Date(1899,11,30,1,0,23).
+// Render it as "1h 00m" (or "45m"). Plain strings like "45 min" pass through.
+export function formatDuration(str: string): string {
+  if (!str) return "";
+  const m = String(str).match(/^Date\(\d+,\d+,\d+,(\d+),(\d+)(?:,(\d+))?/);
+  if (m) {
+    const h = parseInt(m[1], 10);
+    const min = parseInt(m[2], 10);
+    if (h > 0) return `${h}h ${String(min).padStart(2, "0")}m`;
+    if (min > 0) return `${min}m`;
+    return "";
+  }
+  return str;
+}
+
 // Google Drive image URL -> displayable thumbnail (local paths pass through)
 function driveId(url: string): string {
   if (!url) return "";
@@ -137,15 +156,18 @@ const loadTs = Date.now();
 function looksJunk(text?: string): boolean {
   if (!text) return false;
   const s = text.trim();
-  if (s.length > 40) return true;
-  if (/[^aeiouAEIOU\s\-'.]{8,}/.test(s)) return true;
+  if (s.length > 80) return true; // absurdly long name = bot
+  if (/https?:\/\/|www\.|\[url=|<a\s/i.test(s)) return true; // links in a name field = bot
   return false;
 }
 
 export function spamBlock(form: HTMLFormElement, ...names: (string | undefined)[]): boolean {
+  // 1) Honeypot — a hidden field only bots fill.
   const hp = form.querySelector<HTMLInputElement>('input[name="website"]');
   if (hp && hp.value.trim()) return true;
-  if (Date.now() - loadTs < 1500) return true;
+  // 2) Submitted faster than a human could (sub-second) — likely a bot.
+  if (Date.now() - loadTs < 800) return true;
+  // 3) Obvious junk (URLs / absurd length) in a name field.
   if (names.some(looksJunk)) return true;
   return false;
 }

@@ -1,20 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Icon from "@/components/Icon";
 import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
+import EventCover from "@/components/EventCover";
 import { Section, SectionHead } from "@/components/Section";
 import { EventCard, HeroEventCard, CtaBand } from "@/components/blocks";
-import GateModal, { type GateTarget } from "@/components/GateModal";
 import { useUpcomingEvents, useArchive } from "@/lib/useDmsData";
+import { slugify } from "@/lib/slug";
 
 export default function EventsView() {
   const events = useUpcomingEvents();
   const archive = useArchive();
-  const [gate, setGate] = useState<GateTarget | null>(null);
   const heroEvent = events[0];
 
   return (
@@ -72,7 +72,13 @@ export default function EventsView() {
           />
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             {events.map((ev, i) => (
-              <EventCard key={ev.title} event={ev} delay={i * 0.1} index={i} />
+              <EventCard
+                key={ev.title}
+                event={ev}
+                delay={i * 0.1}
+                index={i}
+                href={`/webinars/${slugify(ev.title)}`}
+              />
             ))}
           </div>
         </div>
@@ -88,47 +94,42 @@ export default function EventsView() {
           />
           <Reveal className="mb-10 text-center">
             <span className="chip chip-gold !px-5 !py-2.5 !text-sm">
-              <Icon name="lock" size={14} /> Replays are free, enter your name &amp; email for instant access.
+              <Icon name="lock" size={14} /> Replays are free, open one and enter your name &amp; email for instant access.
             </span>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {archive.map((item, i) => (
               <Reveal key={item.slug} delay={(i % 3) * 0.08} className="h-full">
                 <TiltCard className="h-full">
-                  <div className="glass group flex h-full flex-col overflow-hidden !rounded-3xl">
-                    <button
-                      onClick={() => setGate({ title: item.title, slug: item.slug, vimeo: item.vimeo })}
-                      className="relative block aspect-video w-full cursor-pointer overflow-hidden bg-gradient-to-br from-navy-700 via-navy-800 to-navy-950 text-left"
-                      aria-label={`Watch replay: ${item.title}`}
-                    >
-                      <span
-                        aria-hidden
-                        className="font-display absolute inset-0 flex items-center justify-center text-3xl tracking-[0.3em] text-white/[0.06] uppercase"
-                      >
-                        DMS
-                      </span>
-                      <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-navy-950/70 px-3 py-1 text-[0.65rem] font-bold tracking-wider uppercase backdrop-blur">
-                        <Icon name="lock" size={11} /> Replay
-                      </span>
+                  <Link
+                    href={`/replays/${item.slug}`}
+                    className="glass group flex h-full flex-col overflow-hidden !rounded-3xl"
+                  >
+                    <div className="relative aspect-video w-full overflow-hidden">
+                      <EventCover title={item.title} label="Replay" index={i} />
                       <span className="absolute inset-0 flex items-center justify-center">
                         <span className="flex h-16 w-16 items-center justify-center rounded-full border border-gold-400/50 bg-gold-500/20 text-gold-300 backdrop-blur transition-transform duration-300 group-hover:scale-110">
                           <Icon name="play" size={24} className="ml-1" />
                         </span>
                       </span>
-                    </button>
+                    </div>
                     <div className="flex flex-1 flex-col p-6">
                       <span className="font-mono text-xs tracking-wider text-gold-400">{item.date}</span>
-                      <h3 className="h-display mt-2 text-xl leading-snug">{item.title}</h3>
+                      <h3 className="h-display mt-2 text-xl leading-snug transition-colors group-hover:text-gold-200">
+                        {item.title}
+                      </h3>
+                      {item.summary && (
+                        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-mist">
+                          {item.summary}
+                        </p>
+                      )}
                       <div className="mt-auto pt-5">
-                        <button
-                          onClick={() => setGate({ title: item.title, slug: item.slug, vimeo: item.vimeo })}
-                          className="btn-ghost btn-md w-full"
-                        >
-                          <Icon name="lock" size={14} /> Watch Replay
-                        </button>
+                        <span className="btn-ghost btn-md w-full">
+                          <Icon name="play" size={14} /> Watch Replay
+                        </span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </TiltCard>
               </Reveal>
             ))}
@@ -144,8 +145,6 @@ export default function EventsView() {
         primary={{ href: "/events#upcoming", label: "See Upcoming Webinars" }}
         secondary={{ href: "/#contact", label: "Subscribe to Updates" }}
       />
-
-      <GateModal target={gate} onClose={() => setGate(null)} />
     </>
   );
 }

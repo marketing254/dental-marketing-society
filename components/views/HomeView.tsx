@@ -20,10 +20,10 @@ import NewsletterForm from "@/components/forms/NewsletterForm";
 import {
   useUpcomingEvents,
   useSpeakers,
-  useReviews,
   usePartners,
   useFaqs,
 } from "@/lib/useDmsData";
+import { slugify } from "@/lib/slug";
 
 const PROCESS_STEPS: { icon: IconName; title: string; text: string }[] = [
   { icon: "calendar", title: "Register", text: "Pick an upcoming webinar and reserve your free seat in under a minute." },
@@ -35,7 +35,6 @@ const PROCESS_STEPS: { icon: IconName; title: string; text: string }[] = [
 export default function HomeView() {
   const events = useUpcomingEvents();
   const speakers = useSpeakers();
-  const reviews = useReviews("home");
   const partners = usePartners();
   const faqs = useFaqs();
 
@@ -218,7 +217,13 @@ export default function HomeView() {
           />
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
             {events.map((ev, i) => (
-              <EventCard key={ev.title} event={ev} delay={i * 0.1} index={i} />
+              <EventCard
+                key={ev.title}
+                event={ev}
+                delay={i * 0.1}
+                index={i}
+                href={`/webinars/${slugify(ev.title)}`}
+              />
             ))}
           </div>
         </div>
@@ -276,46 +281,6 @@ export default function HomeView() {
         </div>
       </Section>
 
-      {/* ============ REVIEWS ============ */}
-      <Section id="reviews">
-        <div className="container-x">
-          <SectionHead
-            kicker="Reviews"
-            title="What practice owners are saying"
-            lead="Dentists and practice owners on what our webinars have done for their marketing."
-          />
-          <div className="grid gap-6 md:grid-cols-3">
-            {reviews.map((r, i) => (
-              <Reveal key={i} delay={i * 0.1} className="h-full">
-                <TiltCard className="h-full">
-                  <figure className="glass relative h-full p-7">
-                    <span aria-hidden className="text-gold-grad font-display absolute -top-2 right-6 text-7xl">
-                      ”
-                    </span>
-                    <div className="text-gold-400">★★★★★</div>
-                    <blockquote className="mt-4 text-sm leading-relaxed text-ivory/90">{r.text}</blockquote>
-                    <figcaption className="mt-6 flex items-center gap-3 border-t border-white/8 pt-5">
-                      {r.photo && (
-                        <Image
-                          src={r.photo}
-                          alt=""
-                          width={42}
-                          height={42}
-                          className="h-10 w-10 rounded-full object-cover"
-                        />
-                      )}
-                      <div>
-                        <b className="block text-sm">{r.name}</b>
-                        <small className="text-xs text-mist">{r.firm}</small>
-                      </div>
-                    </figcaption>
-                  </figure>
-                </TiltCard>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </Section>
 
       {/* ============ PARTNERS ============ */}
       <Section className="!py-10" id="resources">

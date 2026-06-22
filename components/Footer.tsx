@@ -10,7 +10,7 @@ const COLUMNS: { title: string; links: { href: string; label: string; external?:
     links: [
       { href: "/about", label: "About Us" },
       { href: "/events", label: "Webinars & Events" },
-      { href: "/#reviews", label: "Reviews" },
+      { href: "/reviews", label: "Reviews" },
       { href: "/speaker", label: "Sign up as a Speaker" },
       { href: SITE.communityUrl, label: "Community", external: true },
     ],
