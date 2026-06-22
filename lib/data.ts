@@ -166,12 +166,13 @@ export const TEAM: TeamMember[] = [
   {
     name: "Lester",
     role: "Assistant Marketing Manager",
-    photo: asset("/assets/team-lester.jpg"),
+    photo: asset("/assets/team-lester-hs.jpg"),
     bio: "Lester drives growth at DMS through strategic partnerships and event management. With a people-first approach, he helps dental practice owners build leadership confidence and connect with the practical resources they need to grow.",
   },
   {
     name: "Hameesha",
     role: "Content & Community Lead",
+    photo: asset("/assets/team-hameesha.jpg"),
     bio: "Hameesha is the Content & Community Lead at Dental Marketing Society, the brains behind the platform. From event planning and content planning to community initiatives, she shapes how DMS connects with dental professionals. With a sharp eye for storytelling, she knows the best content doesn't just inform, it builds trust. Driven by a passion for dental and marketing, Hameesha makes complex dental topics accessible, relevant, and worth reading.",
   },
   {
