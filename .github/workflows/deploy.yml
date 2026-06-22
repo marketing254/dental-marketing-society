@@ -26,6 +26,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # Inlined into the static build so the forms can post leads.
+          # Set this as a repository VARIABLE (Settings → Secrets and variables
+          # → Actions → Variables), named exactly NEXT_PUBLIC_DMS_APPS_SCRIPT_URL.
+          NEXT_PUBLIC_DMS_APPS_SCRIPT_URL: ${{ vars.NEXT_PUBLIC_DMS_APPS_SCRIPT_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
