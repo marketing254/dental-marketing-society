@@ -21,7 +21,7 @@ export default function ContactView() {
               <span className="kicker">Contact Us</span>
             </Reveal>
             <Reveal delay={0.1}>
-              <h1 className="h-display mt-5 text-6xl leading-[1.05] sm:text-7xl">
+              <h1 className="h-display mt-5 text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
                 Let&apos;s <em className="text-gold-grad not-italic">talk</em>
               </h1>
             </Reveal>
@@ -87,7 +87,7 @@ export default function ContactView() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 src="https://maps.google.com/maps?q=303%20Pinetree%20Way%2C%20Mississauga%2C%20Ontario%20L5G%202R4%2C%20Canada&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                className="h-[420px] w-full rounded-[1.6rem] grayscale-[0.4] invert-[0.88] hue-rotate-180"
+                className="h-[280px] w-full rounded-[1.6rem] grayscale-[0.4] invert-[0.88] hue-rotate-180 sm:h-[420px]"
               />
             </div>
           </Reveal>

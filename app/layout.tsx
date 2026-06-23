@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope, IBM_Plex_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import { asset } from "@/lib/asset";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -37,37 +39,21 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE.name,
     url: SITE.url,
-    images: ["/assets/logo.png"],
+    images: [{ url: "/assets/og-default.jpg", width: 1200, height: 630, alt: SITE.name }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/assets/logo.png"],
+    images: ["/assets/og-default.jpg"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
 };
 
 export const viewport = {
   themeColor: "#04090f",
-};
-
-const ORG_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: SITE.name,
-  url: `${SITE.url}/`,
-  logo: `${SITE.url}/assets/logo.png`,
-  description:
-    "An educational platform offering the best in dental digital marketing education for dental practice owners.",
-  email: SITE.email,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "303 Pinetree Way",
-    addressLocality: "Mississauga",
-    addressRegion: "Ontario",
-    postalCode: "L5G 2R4",
-    addressCountry: "CA",
-  },
-  sameAs: Object.values(SITE.social),
 };
 
 export default function RootLayout({
@@ -81,10 +67,7 @@ export default function RootLayout({
       className={`${manrope.variable} ${cormorant.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
-        />
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

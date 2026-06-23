@@ -108,7 +108,7 @@ export default function AuditView() {
                 <p className="mt-1.5 text-sm text-mist">
                   Choose a slot below, it takes under 60 seconds, with no payment.
                 </p>
-                <div className="relative mt-5 h-[560px] overflow-hidden rounded-2xl border border-white/10 bg-white">
+                <div className="relative mt-5 h-[460px] overflow-hidden rounded-2xl border border-white/10 bg-white sm:h-[560px]">
                   {!schedLoaded && (
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-navy-900 text-sm text-mist">
                       <span className="h-8 w-8 animate-spin rounded-full border-2 border-gold-400 border-t-transparent" />

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import AboutView from "@/components/views/AboutView";
+import JsonLd from "@/components/JsonLd";
+import { narenSchema, breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -9,5 +11,18 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutView />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          narenSchema(),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "About Us", path: "/about" },
+          ]),
+        ]}
+      />
+      <AboutView />
+    </>
+  );
 }

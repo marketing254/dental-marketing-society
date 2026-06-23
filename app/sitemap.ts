@@ -45,10 +45,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...webinarSlugs.map((s) => `/webinars/${s}`),
   ];
 
-  return urls.map((route) => ({
-    url: `${SITE.url}${route}`,
-    lastModified,
-    changeFrequency: route.startsWith("/events") || route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : route.includes("/replays/") || route.includes("/webinars/") ? 0.6 : 0.8,
-  }));
+  return urls.map((route) => {
+    // Match the canonical form (trailingSlash: true emits "/about/"), so the
+    // sitemap URL and the page's <link rel="canonical"> are byte-identical.
+    const path = route === "" ? "/" : route.endsWith("/") ? route : `${route}/`;
+    return {
+      url: `${SITE.url}${path}`,
+      lastModified,
+      changeFrequency: route.startsWith("/events") || route === "" ? "weekly" : "monthly",
+      priority: route === "" ? 1 : route.includes("/replays/") || route.includes("/webinars/") ? 0.6 : 0.8,
+    };
+  });
 }

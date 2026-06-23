@@ -112,6 +112,35 @@ export function normalizeWebinarRow(row: SheetRow): DmsEvent {
   };
 }
 
+export interface ServerReview {
+  name: string;
+  firm: string;
+  text: string;
+  rating: number;
+  date?: string;
+}
+
+/** Fetch + normalize the `reviews` tab at build time (for review schema). */
+export async function fetchReviewsServer(): Promise<ServerReview[]> {
+  const rows = await fetchSheetServer("reviews");
+  const clean = (s: string) => String(s || "").replace(/\s+/g, " ").trim();
+  return rows
+    .filter((r) => pickRow(r, ["review_text", "review", "testimonial"]))
+    .map((r): ServerReview => {
+      const ratingRaw = parseInt(pickRow(r, ["rating"]) || "5", 10);
+      return {
+        name: clean(pickRow(r, ["reviewer_name", "name"])) || "Anonymous",
+        firm: clean(pickRow(r, ["firm_name", "role", "practice"])),
+        text: clean(pickRow(r, ["review_text", "review", "testimonial"])),
+        rating: Math.min(5, Math.max(1, isNaN(ratingRaw) ? 5 : ratingRaw)),
+        date: fmtDate(pickRow(r, ["date"])) || undefined,
+      };
+    })
+    // Only real, attributable reviews are eligible for schema (Google requires
+    // a named author and forbids placeholder/fake content).
+    .filter((r) => r.name && r.name !== "Anonymous" && !/\[.*\]/.test(r.name) && r.text);
+}
+
 export function pickRow(row: SheetRow | undefined, names: string[]): string {
   if (!row) return "";
   const keys = Object.keys(row);

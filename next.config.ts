@@ -3,18 +3,22 @@ import type { NextConfig } from "next";
 /**
  * Static export for GitHub Pages.
  *
- * The site is served from the custom domain www.dentalmarketingsociety.com,
- * which is published at the *root* — so there is NO base path (assets resolve
- * from "/"). The custom domain is pinned by public/CNAME.
- *
- * If you ever revert to the bare project URL
+ * CURRENT: served at the project URL
  *   https://marketing254.github.io/dental-marketing-society/
- * set NEXT_PUBLIC_BASE_PATH="/dental-marketing-society" for the build.
+ * so every asset needs the "/dental-marketing-society" base path. This is the
+ * default for production builds (dev stays at root).
+ *
+ * WHEN THE CUSTOM DOMAIN GOES LIVE (www.dentalmarketingsociety.com, served at
+ * root): set REPO_BASE to "" below (or NEXT_PUBLIC_BASE_PATH=""), set
+ * lib/asset.ts to match, and re-create public/CNAME with the domain.
  */
+const REPO_BASE = "/dental-marketing-society";
 const basePath =
   process.env.NEXT_PUBLIC_BASE_PATH !== undefined
     ? process.env.NEXT_PUBLIC_BASE_PATH
-    : "";
+    : process.env.NODE_ENV === "production"
+      ? REPO_BASE
+      : "";
 
 const nextConfig: NextConfig = {
   output: "export",

@@ -88,7 +88,7 @@ function Pagination({
   const btn =
     "flex h-10 min-w-10 items-center justify-center rounded-full border px-3 text-sm font-semibold transition-colors";
   return (
-    <div className="mt-10 flex items-center justify-center gap-2">
+    <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
       <button
         onClick={() => onChange(Math.max(0, page - 1))}
         disabled={page === 0}

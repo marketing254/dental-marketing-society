@@ -15,7 +15,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative scroll-mt-28 py-20 sm:py-28 ${
+      className={`relative scroll-mt-28 py-14 sm:py-20 lg:py-28 ${
         soft ? "bg-gradient-to-b from-transparent via-navy-900/60 to-transparent" : ""
       } ${className}`}
     >
