@@ -5,7 +5,7 @@
 // (When the custom domain goes live, set the production fallback to "".)
 export const BASE_PATH =
   process.env.NEXT_PUBLIC_BASE_PATH ??
-  (process.env.NODE_ENV === "production" ? "/dental-marketing-society" : "");
+  (process.env.NODE_ENV === "production" ? "/msm" : "");
 
 /** Prefix a root-relative local path (e.g. "/assets/logo.png") with BASE_PATH. */
 export function asset(path: string): string {
