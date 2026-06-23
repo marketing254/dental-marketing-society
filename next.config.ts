@@ -13,12 +13,17 @@ import type { NextConfig } from "next";
  * lib/asset.ts to match, and re-create public/CNAME with the domain.
  */
 const REPO_BASE = "/dental-marketing-society";
+// Vercel serves at the domain root → no base path. GitHub Pages serves at
+// /<repo> → needs REPO_BASE. Auto-detected via Vercel's VERCEL=1 build env, with
+// NEXT_PUBLIC_BASE_PATH as a manual override for either host.
 const basePath =
   process.env.NEXT_PUBLIC_BASE_PATH !== undefined
     ? process.env.NEXT_PUBLIC_BASE_PATH
-    : process.env.NODE_ENV === "production"
-      ? REPO_BASE
-      : "";
+    : process.env.VERCEL
+      ? ""
+      : process.env.NODE_ENV === "production"
+        ? REPO_BASE
+        : "";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -31,6 +36,9 @@ const nextConfig: NextConfig = {
   },
   basePath: basePath || undefined,
   trailingSlash: true,
+  // Propagate the resolved base path into the client bundle so asset() (used for
+  // <Image> src under static export) prefixes correctly on whichever host built.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
 };
 
 export default nextConfig;
