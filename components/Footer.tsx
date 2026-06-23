@@ -29,7 +29,7 @@ const COLUMNS: { title: string; links: { href: string; label: string; external?:
     links: [
       { href: "/events#upcoming", label: "Request Free Webinars" },
       { href: "/events#archive", label: "Webinar Archive" },
-      { href: "/audit", label: "Free Marketing Meeting" },
+      { href: "/msm", label: "Free Marketing Meeting" },
       { href: "/contact", label: "Contact Us" },
     ],
   },

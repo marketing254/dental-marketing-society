@@ -80,7 +80,7 @@ export const UPCOMING_EVENTS: DmsEvent[] = [
       "In partnership with Dental Intelligence, practical marketing strategies and data-driven insights for your practice.",
     time: "7:00 to 9:30 PM ET",
     panelists: ["Steven Jensen", "Gerilyn Alfe", "Naren Arulrajah"],
-    registerUrl: "/audit",
+    registerUrl: "/msm",
   },
   {
     day: "22",
@@ -90,7 +90,7 @@ export const UPCOMING_EVENTS: DmsEvent[] = [
     title: "The Dental Workforce Reset (2026)",
     description:
       "Solving the hygiene & assistant bottleneck, without burning out your team.",
-    registerUrl: "/audit",
+    registerUrl: "/msm",
   },
 ];
 

@@ -268,7 +268,7 @@ export default function AboutView() {
         title="Ready to supercharge your practice's growth?"
         lead="Register for our free webinars, or claim a complimentary practice audit, and put these strategies to work in your practice."
         primary={{ href: "/events#upcoming", label: "Request Free Webinars" }}
-        secondary={{ href: "/audit", label: "Claim a Free Audit" }}
+        secondary={{ href: "/msm", label: "Claim a Free Audit" }}
       />
     </>
   );

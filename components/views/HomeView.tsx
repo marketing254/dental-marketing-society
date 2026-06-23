@@ -65,7 +65,7 @@ export default function HomeView() {
               <Link href="/events#upcoming" className="btn-gold btn-lg">
                 Register for a Webinar <Icon name="arrow" size={16} />
               </Link>
-              <Link href="/audit" className="btn-ghost btn-lg">
+              <Link href="/msm" className="btn-ghost btn-lg">
                 Book a Free Meeting
               </Link>
             </div>
@@ -135,7 +135,7 @@ export default function HomeView() {
                 </li>
               ))}
             </ul>
-            <Link href="/audit" className="btn-gold btn-lg mt-9">
+            <Link href="/msm" className="btn-gold btn-lg mt-9">
               Book a Free Marketing Meeting <Icon name="arrow" size={16} />
             </Link>
           </Reveal>
@@ -310,7 +310,7 @@ export default function HomeView() {
         title="Ready to fill your calendar with new patients?"
         lead="Register for our upcoming webinars to enlighten your knowledge on digital marketing. Secure your spot soon!"
         primary={{ href: "/events#upcoming", label: "See Upcoming Webinars" }}
-        secondary={{ href: "/audit", label: "Book a Free Marketing Meeting" }}
+        secondary={{ href: "/msm", label: "Book a Free Marketing Meeting" }}
       />
 
       {/* ============ NEWSLETTER ============ */}

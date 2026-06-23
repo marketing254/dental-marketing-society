@@ -46,7 +46,7 @@ const NAV: NavItem[] = [
     ],
   },
   { href: SITE.communityUrl, label: "Community", external: true },
-  { href: "/audit", label: "Marketing" },
+  { href: "/msm", label: "Marketing" },
   {
     href: "/contact",
     label: "Contact Us",
@@ -226,7 +226,7 @@ export default function Header() {
             </ul>
 
             <div className="flex items-center gap-3">
-              <Link href="/audit" className="btn-gold btn-md hidden md:inline-flex">
+              <Link href="/msm" className="btn-gold btn-md hidden md:inline-flex">
                 <span className="hidden 2xl:inline">Complimentary Practice Audit Session</span>
                 <span className="hidden md:inline 2xl:hidden">Free Practice Audit</span>
               </Link>
@@ -321,7 +321,7 @@ export default function Header() {
               ))}
             </ul>
             <div className="mx-auto mt-8 max-w-md">
-              <Link href="/audit" onClick={closeMenu} className="btn-gold btn-lg w-full">
+              <Link href="/msm" onClick={closeMenu} className="btn-gold btn-lg w-full">
                 Free Practice Audit <Icon name="arrow" size={16} />
               </Link>
             </div>

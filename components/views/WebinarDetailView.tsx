@@ -30,7 +30,7 @@ export default function WebinarDetailView({
   const event = live ?? initial;
   const all = useUpcomingEvents();
   const more = all.filter((e) => slugify(e.title) !== slug).slice(0, 2);
-  const registerUrl = event?.registerUrl || "/audit";
+  const registerUrl = event?.registerUrl || "/msm";
 
   return (
     <>

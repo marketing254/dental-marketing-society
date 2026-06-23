@@ -182,7 +182,7 @@ export default function ReviewsView() {
         title="Ready to grow your practice?"
         lead="Register for our free webinars or claim a complimentary practice audit, and see the difference for yourself."
         primary={{ href: "/events#upcoming", label: "See Upcoming Webinars" }}
-        secondary={{ href: "/audit", label: "Claim a Free Audit" }}
+        secondary={{ href: "/msm", label: "Claim a Free Audit" }}
       />
     </>
   );

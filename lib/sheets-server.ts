@@ -108,7 +108,7 @@ export function normalizeWebinarRow(row: SheetRow): DmsEvent {
     time: pickRow(row, ["time"]) || undefined,
     panelists: pickRow(row, ["panelists", "Panelists"]).split("|").map((p) => p.trim()).filter(Boolean),
     image: driveImg(pickRow(row, ["image_url", "image_urls"])) || undefined,
-    registerUrl: pickRow(row, ["register_url"]) || "/audit",
+    registerUrl: pickRow(row, ["register_url"]) || "/msm",
   };
 }
 

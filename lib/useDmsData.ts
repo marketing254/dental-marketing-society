@@ -99,7 +99,7 @@ export function useUpcomingEvents(): DmsEvent[] {
           time: pick(r, ["time"]) || undefined,
           panelists: pick(r, ["panelists"]).split("|").map((p) => p.trim()).filter(Boolean),
           image: driveImg(pick(r, ["image_url", "image_urls"])) || undefined,
-          registerUrl: pick(r, ["register_url"]) || "/audit",
+          registerUrl: pick(r, ["register_url"]) || "/msm",
         };
       });
     return events.length ? events : UPCOMING_EVENTS;
