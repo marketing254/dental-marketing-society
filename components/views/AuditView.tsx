@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Icon, { type IconName } from "@/components/Icon";
@@ -11,6 +12,7 @@ import { Section, SectionHead } from "@/components/Section";
 import { FeatureCard, StatBand, CtaBand } from "@/components/blocks";
 import { useReviews } from "@/lib/useDmsData";
 import { SITE } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 const INCLUDED: { icon: IconName; title: string; text: string }[] = [
   { icon: "users", title: "Patient Quality Audit", text: "A clear look at where your patients come from and how treatment acceptance is trending." },
@@ -77,9 +79,13 @@ export default function AuditView() {
             </Reveal>
             <Reveal delay={0.34}>
               <div className="mt-8 flex items-center gap-4">
-                <span className="font-display flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 text-lg font-bold text-gold-300">
-                  NA
-                </span>
+                <Image
+                  src={asset("/assets/naren.jpg")}
+                  alt="Naren Arulrajah, Founder of Dental Marketing Society"
+                  width={48}
+                  height={48}
+                  className="h-12 w-12 rounded-full border border-gold-500/40 object-cover"
+                />
                 <span className="text-sm text-mist">
                   Hosted by <b className="block text-ivory">Naren Arulrajah</b>
                   15+ years in dental marketing

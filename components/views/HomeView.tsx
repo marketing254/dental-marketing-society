@@ -49,15 +49,14 @@ export default function HomeView() {
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="h-display mx-auto mt-6 max-w-4xl text-5xl leading-[1.06] sm:text-6xl lg:text-7xl">
-              Marketing Webinars For{" "}
-              <em className="text-shimmer not-italic">Dental Practice</em> Owners
+              Marketing That{" "}
+              <em className="text-shimmer not-italic">Fills Chairs</em> For Dental Practices
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-mist">
-              Fill your calendar with new patients and expand your marketing
-              knowledge. Learn the digital strategies that grow modern dental
-              practices, straight from the people who do it every day.
+              Free webinars, expert strategies, and CE credits, plus a free
+              diagnosis of your practice&apos;s online marketing.
             </p>
           </Reveal>
           <Reveal delay={0.3}>
@@ -66,7 +65,7 @@ export default function HomeView() {
                 Register for a Webinar <Icon name="arrow" size={16} />
               </Link>
               <Link href="/msm" className="btn-ghost btn-lg">
-                Book a Free Meeting
+                Diagnose My Online Marketing
               </Link>
             </div>
           </Reveal>
