@@ -76,9 +76,11 @@ export default function WebinarDetailView({
                         <Icon name="clock" size={15} /> {event.time}
                       </span>
                     )}
-                    <span className="inline-flex items-center gap-1.5">
-                      <Icon name="award" size={15} /> 2 CE Credits
-                    </span>
+                    {event.ceCredits && (
+                      <span className="inline-flex items-center gap-1.5">
+                        <Icon name="award" size={15} /> {event.ceCredits}
+                      </span>
+                    )}
                   </div>
                 </Reveal>
                 {event.description && (
@@ -90,11 +92,27 @@ export default function WebinarDetailView({
                   <Reveal delay={0.3}>
                     <div className="mt-6">
                       <p className="font-mono text-xs tracking-[0.2em] text-mist uppercase">Panelists</p>
-                      <div className="mt-3 flex flex-wrap gap-2">
+                      <div className="mt-3 flex flex-wrap gap-3">
                         {event.panelists.map((p) => (
-                          <span key={p} className="chip">
-                            <Icon name="users" size={13} /> {p}
-                          </span>
+                          <div
+                            key={p.name}
+                            className="flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-1.5 pr-4"
+                          >
+                            {p.image ? (
+                              <Image
+                                src={p.image}
+                                alt={p.name}
+                                width={36}
+                                height={36}
+                                className="h-9 w-9 rounded-full border border-gold-500/30 object-cover"
+                              />
+                            ) : (
+                              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10 text-xs font-bold text-gold-300">
+                                {p.name.split(/\s+/).map((w) => w[0]).filter(Boolean).slice(0, 2).join("").toUpperCase()}
+                              </span>
+                            )}
+                            <span className="text-sm text-ivory">{p.name}</span>
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -161,7 +179,7 @@ export default function WebinarDetailView({
                       <TiltCard className="h-full">
                         <Link href={`/webinars/${slugify(e.title)}`} className="glass flex h-full flex-col overflow-hidden !rounded-3xl">
                           <div className="relative aspect-[1200/630] overflow-hidden">
-                            <EventCover title={e.title} label="Live Webinar" day={e.day} month={e.month} index={i + 1} />
+                            <EventCover title={e.title} label="Live Webinar" day={e.day} month={e.month} index={i + 1} showTitle={false} />
                           </div>
                           <div className="p-6">
                             <span className="font-mono text-xs tracking-wider text-gold-400">{e.dateLabel}</span>

@@ -40,6 +40,7 @@ export async function fetchSheetServer(sheetName: string): Promise<SheetRow[]> {
 }
 
 import { slugify } from "./slug";
+import { parsePanelists } from "./panelists";
 import type { ArchiveItem, DmsEvent } from "./data";
 
 function parseDate(str: string): Date | null {
@@ -74,7 +75,8 @@ function driveImg(url: string): string {
   if (!/google\.com|googleusercontent\.com/.test(url) && !/^[\w-]{25,}$/.test(url)) return url;
   let m = url.match(/\/d\/([\w-]{20,})/) || url.match(/[?&]id=([\w-]{20,})/);
   const id = m ? m[1] : /^[\w-]{25,}$/.test(url) ? url : "";
-  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1200` : url;
+  // Direct Google CDN URL (reliable <img> hotlink; the /thumbnail redirect is flaky).
+  return id ? `https://lh3.googleusercontent.com/d/${id}=w1200` : url;
 }
 
 /** Normalize a `webinar-replays` row to the client ArchiveItem shape (build time). */
@@ -106,8 +108,10 @@ export function normalizeWebinarRow(row: SheetRow): DmsEvent {
     title: pickRow(row, ["title"]),
     description: pickRow(row, ["description", "subtitle"]),
     time: pickRow(row, ["time"]) || undefined,
-    panelists: pickRow(row, ["panelists", "Panelists"]).split("|").map((p) => p.trim()).filter(Boolean),
+    ceCredits: pickRow(row, ["CE Credits", "ce_credits", "credits"]) || undefined,
+    panelists: parsePanelists(pickRow(row, ["panelists", "Panelists"]), driveImg),
     image: driveImg(pickRow(row, ["image_url", "image_urls"])) || undefined,
+    popupBanner: driveImg(pickRow(row, ["popup_banner", "popupBanner"])) || undefined,
     registerUrl: pickRow(row, ["register_url"]) || "/msm",
   };
 }

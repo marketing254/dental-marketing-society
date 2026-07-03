@@ -31,6 +31,7 @@ export function EventCard({
         day={event.day}
         month={event.month}
         index={index}
+        showTitle={false}
       />
     </div>
   );
@@ -61,7 +62,7 @@ export function EventCard({
             {event.panelists && event.panelists.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
                 {event.panelists.map((p) => (
-                  <span key={p} className="chip">{p}</span>
+                  <span key={p.name} className="chip">{p.name}</span>
                 ))}
               </div>
             )}
@@ -69,7 +70,9 @@ export function EventCard({
               {event.time ? (
                 <>
                   <span className="chip"><Icon name="clock" size={13} /> {event.time}</span>
-                  <span className="chip chip-gold"><Icon name="award" size={13} /> 2 CE Credits</span>
+                  {event.ceCredits && (
+                    <span className="chip chip-gold"><Icon name="award" size={13} /> {event.ceCredits}</span>
+                  )}
                 </>
               ) : (
                 <>
@@ -106,7 +109,7 @@ export function HeroEventCard({ event }: { event: DmsEvent }) {
           <Icon name="award" size={18} />
         </span>
         <span className="text-sm font-bold leading-tight">
-          2 CE Credits
+          {event.ceCredits || "CE Credits"}
           <small className="block text-xs font-medium text-mist">Earned live</small>
         </span>
       </motion.div>
@@ -144,7 +147,7 @@ export function HeroEventCard({ event }: { event: DmsEvent }) {
             </div>
             <h3 className="h-display mt-3 text-3xl leading-tight">{event.title}</h3>
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className="chip chip-gold"><Icon name="award" size={13} /> 2 CE Credits</span>
+              <span className="chip chip-gold"><Icon name="award" size={13} /> {event.ceCredits || "CE Credits"}</span>
               <span className="chip"><Icon name="replay" size={13} /> Live + replay</span>
             </div>
             <Link href="/events#upcoming" className="btn-gold btn-lg mt-6 w-full">

@@ -17,6 +17,7 @@ import {
   FaqList,
 } from "@/components/blocks";
 import NewsletterForm from "@/components/forms/NewsletterForm";
+import PopupBanner from "@/components/PopupBanner";
 import {
   useUpcomingEvents,
   useSpeakers,
@@ -40,6 +41,7 @@ export default function HomeView() {
 
   return (
     <>
+      <PopupBanner />
       {/* ============ HERO ============ */}
       <section className="relative -mt-[110px] overflow-hidden pb-24 pt-[180px] text-center sm:pt-[210px]">
         <FlowLines />

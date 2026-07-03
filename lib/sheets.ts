@@ -146,7 +146,9 @@ export function driveImg(url: string, size = "w800"): string {
   url = url.trim();
   if (!/google\.com|googleusercontent\.com/.test(url) && !/^[\w-]{25,}$/.test(url)) return url;
   const id = driveId(url);
-  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=${size}` : url;
+  // Direct Google CDN URL (the target the drive.google.com/thumbnail endpoint
+  // redirects to). Hotlinks reliably in <img> — the redirect route is flaky.
+  return id ? `https://lh3.googleusercontent.com/d/${id}=${size}` : url;
 }
 
 // -- Spam gate (honeypot + time-on-page + junk-name) -----------------------

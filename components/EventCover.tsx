@@ -35,12 +35,15 @@ export default function EventCover({
   day,
   month,
   index = 0,
+  showTitle = true,
 }: {
   title: string;
   label?: string;
   day?: string;
   month?: string;
   index?: number;
+  /** When false the title text is hidden (avoids repeating it under a card). */
+  showTitle?: boolean;
 }) {
   const t = THEMES[index % THEMES.length];
   return (
@@ -105,6 +108,18 @@ export default function EventCover({
           )}
         </div>
 
+        {/* Centered brand emblem — fills the space when the title is hidden. */}
+        {!showTitle && (
+          <div className="flex flex-1 items-center justify-center py-2">
+            <span
+              className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.07] backdrop-blur"
+              style={{ boxShadow: `0 0 44px ${t.g1}` }}
+            >
+              <Icon name="tooth" size={30} style={{ color: t.accent }} />
+            </span>
+          </div>
+        )}
+
         <div>
           <span
             className="inline-flex items-center gap-1.5 text-[0.68rem] font-bold tracking-[0.16em] uppercase"
@@ -112,12 +127,14 @@ export default function EventCover({
           >
             <span className="live-dot" /> {label}
           </span>
-          <h3
-            className="font-display mt-1.5 line-clamp-2 text-[1.5rem] font-semibold leading-tight text-ivory"
-            style={{ textShadow: "0 2px 14px rgba(0,0,0,0.45)" }}
-          >
-            {title}
-          </h3>
+          {showTitle && (
+            <h3
+              className="font-display mt-1.5 line-clamp-2 text-[1.5rem] font-semibold leading-tight text-ivory"
+              style={{ textShadow: "0 2px 14px rgba(0,0,0,0.45)" }}
+            >
+              {title}
+            </h3>
+          )}
         </div>
       </div>
     </div>

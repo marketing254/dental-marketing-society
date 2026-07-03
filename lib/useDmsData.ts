@@ -15,6 +15,7 @@ import {
   slugify,
   type SheetRow,
 } from "@/lib/sheets";
+import { parsePanelists } from "@/lib/panelists";
 import {
   UPCOMING_EVENTS,
   ARCHIVE,
@@ -97,8 +98,10 @@ export function useUpcomingEvents(): DmsEvent[] {
           title: pick(r, ["title"]),
           description: pick(r, ["description", "subtitle"]),
           time: pick(r, ["time"]) || undefined,
-          panelists: pick(r, ["panelists"]).split("|").map((p) => p.trim()).filter(Boolean),
+          ceCredits: pick(r, ["CE Credits", "ce_credits", "credits"]) || undefined,
+          panelists: parsePanelists(pick(r, ["panelists", "Panelists"]), driveImg),
           image: driveImg(pick(r, ["image_url", "image_urls"])) || undefined,
+          popupBanner: driveImg(pick(r, ["popup_banner", "popupBanner"])) || undefined,
           registerUrl: pick(r, ["register_url"]) || "/msm",
         };
       });

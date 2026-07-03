@@ -2,6 +2,12 @@ import { asset } from "./asset";
 // Static fallback content. The live Google Sheet (lib/sheets.ts) overrides
 // these at runtime when reachable, exactly like the original site.
 
+export interface Panelist {
+  name: string;
+  /** Optional headshot (Drive thumbnail URL); shown when the team adds it. */
+  image?: string;
+}
+
 export interface DmsEvent {
   day: string;
   month: string;
@@ -11,8 +17,12 @@ export interface DmsEvent {
   title: string;
   description: string;
   time?: string;
-  panelists?: string[];
+  panelists?: Panelist[];
   image?: string;
+  /** Dynamic CE credit label from the sheet, e.g. "1 CE" / "2 CE Credits". */
+  ceCredits?: string;
+  /** Popup-banner image (Drive thumbnail) shown on the home page. */
+  popupBanner?: string;
   registerUrl: string;
 }
 
@@ -79,7 +89,12 @@ export const UPCOMING_EVENTS: DmsEvent[] = [
     description:
       "In partnership with Dental Intelligence, practical marketing strategies and data-driven insights for your practice.",
     time: "7:00 to 9:30 PM ET",
-    panelists: ["Steven Jensen", "Gerilyn Alfe", "Naren Arulrajah"],
+    ceCredits: "2 CE Credits",
+    panelists: [
+      { name: "Steven Jensen" },
+      { name: "Gerilyn Alfe" },
+      { name: "Naren Arulrajah" },
+    ],
     registerUrl: "/msm",
   },
   {

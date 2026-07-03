@@ -129,7 +129,7 @@ export function eventSchema(event: DmsEvent, pageUrl: string) {
   };
   if (event.iso) node.startDate = event.iso;
   if (event.panelists?.length) {
-    node.performer = event.panelists.map((p) => ({ "@type": "Person", name: p }));
+    node.performer = event.panelists.map((p) => ({ "@type": "Person", name: p.name }));
   }
   return node;
 }
