@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import Icon from "@/components/Icon";
 import FlowLines from "@/components/motion/FlowLines";
 import Reveal from "@/components/motion/Reveal";
@@ -143,7 +142,8 @@ export default function ReplayDetailView({
                     ) : (
                       <>
                         {item.image ? (
-                          <Image src={item.image} alt={item.title} fill className="object-cover" sizes="100vw" />
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={item.image} alt={item.title} referrerPolicy="no-referrer" className="absolute inset-0 h-full w-full object-cover" />
                         ) : (
                           <EventCover title={item.title} label="Replay" />
                         )}
@@ -270,7 +270,18 @@ export default function ReplayDetailView({
                           className="glass group flex h-full flex-col overflow-hidden !rounded-3xl"
                         >
                           <div className="relative aspect-video overflow-hidden">
-                            <EventCover title={r.title} label="Replay" index={i} />
+                            {r.image ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={r.image}
+                                alt={r.title}
+                                referrerPolicy="no-referrer"
+                                loading="lazy"
+                                className="absolute inset-0 h-full w-full object-cover"
+                              />
+                            ) : (
+                              <EventCover title={r.title} label="Replay" index={i} />
+                            )}
                             <span className="absolute inset-0 flex items-center justify-center">
                               <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold-400/50 bg-gold-500/20 text-gold-300 transition-transform duration-300 group-hover:scale-110">
                                 <Icon name="play" size={22} className="ml-1" />

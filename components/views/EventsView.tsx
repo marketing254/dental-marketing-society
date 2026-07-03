@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Icon from "@/components/Icon";
@@ -12,10 +13,74 @@ import { EventCard, HeroEventCard, CtaBand } from "@/components/blocks";
 import { useUpcomingEvents, useArchive } from "@/lib/useDmsData";
 import { slugify } from "@/lib/slug";
 
+const REPLAYS_PER_PAGE = 6;
+
+function Pagination({
+  page,
+  pages,
+  onChange,
+}: {
+  page: number;
+  pages: number;
+  onChange: (p: number) => void;
+}) {
+  const btn =
+    "flex h-10 min-w-10 items-center justify-center rounded-full border px-3 text-sm font-semibold transition-colors";
+  return (
+    <div className="mt-12 flex flex-wrap items-center justify-center gap-2">
+      <button
+        onClick={() => onChange(Math.max(0, page - 1))}
+        disabled={page === 0}
+        className={`${btn} border-white/12 text-mist hover:border-gold-400/50 hover:text-gold-300 disabled:cursor-not-allowed disabled:opacity-40`}
+        aria-label="Previous page"
+      >
+        <Icon name="back" size={16} />
+      </button>
+      {Array.from({ length: pages }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => onChange(i)}
+          aria-current={i === page}
+          className={`${btn} ${
+            i === page
+              ? "border-gold-400/60 bg-gold-500/15 text-gold-200"
+              : "border-white/12 text-mist hover:border-gold-400/50 hover:text-gold-300"
+          }`}
+        >
+          {i + 1}
+        </button>
+      ))}
+      <button
+        onClick={() => onChange(Math.min(pages - 1, page + 1))}
+        disabled={page === pages - 1}
+        className={`${btn} border-white/12 text-mist hover:border-gold-400/50 hover:text-gold-300 disabled:cursor-not-allowed disabled:opacity-40`}
+        aria-label="Next page"
+      >
+        <Icon name="arrow" size={16} />
+      </button>
+    </div>
+  );
+}
+
 export default function EventsView() {
   const events = useUpcomingEvents();
   const archive = useArchive();
   const heroEvent = events[0];
+
+  const [page, setPage] = useState(0);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const paginate = archive.length > REPLAYS_PER_PAGE;
+  const pages = Math.max(1, Math.ceil(archive.length / REPLAYS_PER_PAGE));
+  useEffect(() => {
+    if (page > pages - 1) setPage(0);
+  }, [page, pages]);
+  const current = paginate
+    ? archive.slice(page * REPLAYS_PER_PAGE, page * REPLAYS_PER_PAGE + REPLAYS_PER_PAGE)
+    : archive;
+  const goTo = (p: number) => {
+    setPage(p);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
@@ -97,8 +162,8 @@ export default function EventsView() {
               <Icon name="lock" size={14} /> Replays are free, open one and enter your name &amp; email for instant access.
             </span>
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {archive.map((item, i) => (
+          <div ref={gridRef} className="grid scroll-mt-28 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {current.map((item, i) => (
               <Reveal key={item.slug} delay={(i % 3) * 0.08} className="h-full">
                 <TiltCard className="h-full">
                   <Link
@@ -106,7 +171,18 @@ export default function EventsView() {
                     className="glass group flex h-full flex-col overflow-hidden !rounded-3xl"
                   >
                     <div className="relative aspect-video w-full overflow-hidden">
-                      <EventCover title={item.title} label="Replay" index={i} />
+                      {item.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                      ) : (
+                        <EventCover title={item.title} label="Replay" index={i} />
+                      )}
                       <span className="absolute inset-0 flex items-center justify-center">
                         <span className="flex h-16 w-16 items-center justify-center rounded-full border border-gold-400/50 bg-gold-500/20 text-gold-300 backdrop-blur transition-transform duration-300 group-hover:scale-110">
                           <Icon name="play" size={24} className="ml-1" />
@@ -134,6 +210,7 @@ export default function EventsView() {
               </Reveal>
             ))}
           </div>
+          {paginate && <Pagination page={page} pages={pages} onChange={goTo} />}
         </div>
       </Section>
 
