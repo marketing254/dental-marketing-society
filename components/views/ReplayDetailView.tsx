@@ -14,6 +14,7 @@ import { Section, SectionHead } from "@/components/Section";
 import { useReplay, useArchive } from "@/lib/useDmsData";
 import { videoEmbedUrl } from "@/lib/embed";
 import { sendLead, spamBlock } from "@/lib/sheets";
+import { postToKit } from "@/lib/kit";
 import type { ArchiveItem } from "@/lib/data";
 
 const isUrl = (s?: string) => !!s && /^https?:\/\//.test(s);
@@ -45,14 +46,16 @@ export default function ReplayDetailView({
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value || "";
     if (spamBlock(form, name)) return;
     setUnlocked(true);
-    sendLead({
+    const payload = {
       form: "webinar_replay_gate",
       name,
       email,
       webinar_title: item?.title || "",
       replay_slug: slug,
       page_url: typeof location !== "undefined" ? location.href : "",
-    });
+    };
+    sendLead(payload);
+    postToKit("webinar_replay_gate", payload);
   }
 
   return (

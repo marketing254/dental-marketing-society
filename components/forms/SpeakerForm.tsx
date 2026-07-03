@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Icon from "@/components/Icon";
 import { sendLead, spamBlock } from "@/lib/sheets";
+import { postToKit } from "@/lib/kit";
 
 const TOPICS = [
   "Practice Marketing",
@@ -26,7 +27,7 @@ export default function SpeakerForm() {
       (form.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null)?.value.trim() ?? "";
     if (spamBlock(form, g("first_name"), g("last_name"))) return;
     setDone(true);
-    sendLead({
+    const payload = {
       form: "guest_speaker",
       first_name: g("first_name"),
       last_name: g("last_name"),
@@ -36,7 +37,9 @@ export default function SpeakerForm() {
       topic: g("topic"),
       about: g("about"),
       page_url: window.location.href,
-    });
+    };
+    sendLead(payload);
+    postToKit("guest", payload);
   }
 
   if (done) {

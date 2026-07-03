@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Icon from "@/components/Icon";
 import { sendLead, spamBlock } from "@/lib/sheets";
+import { postToKit } from "@/lib/kit";
 import { SITE } from "@/lib/site";
 
 const SUBJECTS = [
@@ -24,14 +25,16 @@ export default function ContactForm() {
       (form.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null)?.value.trim() ?? "";
     if (spamBlock(form, g("name"))) return;
     setDone(true);
-    sendLead({
+    const payload = {
       form: "contact_us",
       name: g("name"),
       email: g("email"),
       subject: g("subject"),
       message: g("message"),
       page_url: window.location.href,
-    });
+    };
+    sendLead(payload);
+    postToKit("contact", payload);
   }
 
   if (done) {

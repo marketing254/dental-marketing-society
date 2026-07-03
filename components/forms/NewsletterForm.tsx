@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Icon from "@/components/Icon";
 import { sendLead, spamBlock } from "@/lib/sheets";
+import { postToKit } from "@/lib/kit";
 
 export default function NewsletterForm({
   source,
@@ -21,7 +22,9 @@ export default function NewsletterForm({
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim();
     if (!email || spamBlock(form)) return;
     setDone(true);
-    sendLead({ form: "newsletter", email, source, page_url: window.location.href });
+    const page_url = window.location.href;
+    sendLead({ form: "newsletter", email, source, page_url });
+    postToKit("newsletter", { email, source, page_url });
   }
 
   if (done) {
