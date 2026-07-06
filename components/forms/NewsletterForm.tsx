@@ -38,7 +38,7 @@ export default function NewsletterForm({
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3 sm:flex-row">
       <span aria-hidden className="absolute -left-[9999px]">
-        <input type="text" name="dms_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+        <input type="text" name="dms_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" data-1p-ignore data-lpignore="true" data-form-type="other" />
       </span>
       <input
         type="email"

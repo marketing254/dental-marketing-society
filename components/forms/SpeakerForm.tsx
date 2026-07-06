@@ -60,7 +60,7 @@ export default function SpeakerForm() {
   return (
     <form onSubmit={onSubmit} className="glass-strong relative p-7 sm:p-8">
       <span aria-hidden className="absolute -left-[9999px]">
-        <input type="text" name="dms_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+        <input type="text" name="dms_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" data-1p-ignore data-lpignore="true" data-form-type="other" />
       </span>
       <h3 className="h-display text-2xl">Apply to Speak</h3>
       <p className="mb-6 mt-1 text-sm text-mist">Tell us a bit about you, we respond within 3 business days.</p>

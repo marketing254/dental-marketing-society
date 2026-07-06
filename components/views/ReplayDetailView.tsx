@@ -177,7 +177,7 @@ export default function ReplayDetailView({
                     className="glass mx-auto mt-6 max-w-xl !rounded-3xl p-6 sm:p-8"
                   >
                     <span className="dms-hp" aria-hidden style={{ position: "absolute", left: "-9999px" }}>
-                      <input type="text" name="dms_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                      <input type="text" name="dms_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" data-1p-ignore data-lpignore="true" data-form-type="other" />
                     </span>
                     <h3 className="h-display text-2xl">Watch the replay free</h3>
                     <p className="mt-1 text-sm text-mist">
