@@ -79,6 +79,15 @@ export interface Faq {
   answer: string;
 }
 
+export interface ResourceItem {
+  category: string;
+  title: string;
+  description: string;
+  author?: string;
+  tags: string[];
+  pdf?: string;
+}
+
 export const UPCOMING_EVENTS: DmsEvent[] = [
   {
     day: "11",
@@ -281,4 +290,49 @@ export const PARTNERS = [
   { name: "Oral Health", logo: asset("/assets/media-oralhealth.jpg") },
   { name: "Data Driven Dentistry", logo: asset("/assets/media-datadriven.jpg") },
   { name: "The Dental Geek", logo: asset("/assets/media-dentalgeek.jpg") },
+];
+
+// Static fallback for the `resources` sheet tab (shown until the live sheet loads).
+export const RESOURCES: ResourceItem[] = [
+  {
+    category: "Guide",
+    title: "From Click to Consultation: The Patient Journey Audit",
+    description:
+      "Map every digital touchpoint a prospective patient encounters before booking — and find the leak costing your practice consultations.",
+    author: "OBA Editorial",
+    tags: ["Patient Journey", "Digital Marketing", "Conversion"],
+  },
+  {
+    category: "Template",
+    title: "Premium IOL Consultation Script & Objection Guide",
+    description:
+      "A structured conversation framework for the in-office premium IOL discussion — including the 7 most common objections and how top surgeons respond.",
+    author: "Guido Piquet, COO",
+    tags: ["Premium IOL", "Sales Conversation", "Cataract"],
+  },
+  {
+    category: "Checklist",
+    title: "90-Day Marketing ROI Audit Checklist",
+    description:
+      "Pinpoint exactly where your marketing budget is working — and where it's leaking. Built for practice owners who don't have time to become marketers.",
+    author: "Naren Arulrajah",
+    tags: ["Marketing Audit", "ROI", "Google Ads"],
+  },
+  {
+    category: "Guide + Checklist",
+    title: "The Dental Practice Growth Leak Checklist",
+    description:
+      "A practical guide for dental practice owners to identify where growth is leaking across marketing, patient calls, team execution, and leadership — with checklists, a 7-day reset plan, and simple action steps to turn busyness into profitable growth.",
+    author: "Dental Marketing Society Editorial",
+    tags: ["Practice Growth", "Dental Marketing", "Team Execution", "Leadership"],
+  },
+  {
+    category: "Guide + Checklist",
+    title: "FILTER: The Better-Fit Patient Lead Guide",
+    description:
+      "A practical marketing guide for dental practice owners and marketers to attract higher-quality patients, build trust earlier, and reduce time spent on poor-fit inquiries. Includes a four-part lead filter, a quick marketing audit, a lead-quality scorecard, and a 7-day action plan.",
+    author: "Hameesha Hassan / Dental Marketing Society Editorial",
+    tags: ["Patient Lead Quality", "Dental Marketing", "Practice Growth", "Lead Qualification"],
+    pdf: "https://drive.google.com/file/d/1EFyAIj-TtEODfkAKSCNmNA60OyWaClIc/view?usp=sharing",
+  },
 ];

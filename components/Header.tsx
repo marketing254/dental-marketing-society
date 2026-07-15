@@ -40,8 +40,8 @@ const NAV: NavItem[] = [
     href: "/resources",
     label: "Resources",
     drop: [
+      { href: "/resources", label: "Resource Library", sub: "Free guides, templates & checklists", icon: "download" },
       { href: "/partners", label: "Featured Partners", sub: "The brands we work with", icon: "award" },
-      { href: "/resources", label: "Blog & Insights", sub: "Coming soon", icon: "book" },
       { href: "/resources", label: "Podcast", sub: "Coming soon", icon: "mic" },
     ],
   },

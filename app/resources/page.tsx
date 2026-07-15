@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ResourcesView from "@/components/views/ResourcesView";
 
 export const metadata: Metadata = {
-  title: "Resources, Coming Soon",
+  title: "Free Dental Marketing Resources: Guides, Templates & Checklists",
   description:
-    "Our resource library, blog & insights, free downloads, practice tools, and a podcast, is coming soon. Be the first to know when it launches.",
+    "Download free dental marketing resources from the Dental Marketing Society — practical guides, consultation scripts, ROI audit checklists, and growth templates for practice owners.",
   alternates: { canonical: "/resources" },
 };
 

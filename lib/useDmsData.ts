@@ -24,6 +24,7 @@ import {
   REVIEWS,
   FAQS,
   PARTNERS,
+  RESOURCES,
   type DmsEvent,
   type ArchiveItem,
   type Speaker,
@@ -31,6 +32,7 @@ import {
   type TeamMember,
   type Review,
   type Faq,
+  type ResourceItem,
 } from "@/lib/data";
 
 // Maps a contact label (e.g. "LinkedIn", "Website") to a normalized platform key.
@@ -247,6 +249,33 @@ export function useAllReviews(): Review[] {
         };
       });
     return list.length ? list : REVIEWS;
+  }, [rows]);
+}
+
+/**
+ * Live resource library from the `resources` sheet tab.
+ * Columns: categories | title | description | author | tags (one per line) | pdf_url
+ * Update a cell in the sheet and the page reflects it on the next load.
+ */
+export function useResources(): ResourceItem[] {
+  const rows = useSheet("resources");
+  return useMemo(() => {
+    if (!rows) return RESOURCES;
+    const clean = (s: string) => s.replace(/\s+/g, " ").trim();
+    const list = rows
+      .filter((r) => pick(r, ["title"]))
+      .map((r): ResourceItem => ({
+        category: clean(pick(r, ["categories", "category", "type"])) || "Resource",
+        title: clean(pick(r, ["title"])),
+        description: pick(r, ["description", "summary"]).trim(),
+        author: clean(pick(r, ["author", "by"])) || undefined,
+        tags: pick(r, ["tags", "tag"])
+          .split(/[\n,|]+/)
+          .map((t) => t.trim())
+          .filter(Boolean),
+        pdf: pick(r, ["pdf_url", "pdf", "file_url", "download_url", "link"]) || undefined,
+      }));
+    return list.length ? list : RESOURCES;
   }, [rows]);
 }
 

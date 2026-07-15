@@ -17,8 +17,71 @@ export const DMS_APPS_SCRIPT_URL =
 
 export type SheetRow = Record<string, string>;
 
+// Tabs fetched via the raw CSV export endpoint instead of gviz. The gviz API
+// treats every FROZEN row as a header row, so a tab with (say) 5 frozen rows
+// silently loses its first 4 data rows. The export endpoint returns raw cells
+// regardless of freezing (and sends Access-Control-Allow-Origin: *). Keyed by
+// tab name -> gid (the tab id from the sheet URL).
+const CSV_EXPORT_TABS: Record<string, string> = {
+  resources: "1837065689",
+};
+
+function parseCsv(text: string): string[][] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = "";
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += ch;
+    } else if (ch === '"') {
+      inQuotes = true;
+    } else if (ch === ",") {
+      row.push(field);
+      field = "";
+    } else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
+      row.push(field);
+      field = "";
+      rows.push(row);
+      row = [];
+    } else {
+      field += ch;
+    }
+  }
+  if (field !== "" || row.length) {
+    row.push(field);
+    rows.push(row);
+  }
+  return rows;
+}
+
+async function fetchSheetCsv(gid: string): Promise<SheetRow[]> {
+  const url = `https://docs.google.com/spreadsheets/d/${DMS_SHEET_ID}/export?format=csv&gid=${gid}&_=${Date.now()}`;
+  const res = await fetch(url, { cache: "no-store" });
+  const rows = parseCsv(await res.text());
+  if (!rows.length) return [];
+  const cols = rows[0].map((c) => c.trim());
+  return rows
+    .slice(1)
+    .filter((r) => r.some((cell) => cell && cell.trim() !== ""))
+    .map((r) => {
+      const obj: SheetRow = {};
+      cols.forEach((c, i) => {
+        obj[c] = (r[i] ?? "").trim();
+      });
+      return obj;
+    });
+}
+
 export async function fetchSheet(sheetName: string): Promise<SheetRow[]> {
   if (!DMS_SHEET_ID) return [];
+  const gid = CSV_EXPORT_TABS[sheetName];
+  if (gid) return fetchSheetCsv(gid);
   // Cache-bust + no-store so edits in the sheet show on the next page load
   // instead of being served from a stale cache.
   const url = `https://docs.google.com/spreadsheets/d/${DMS_SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=${encodeURIComponent(
@@ -139,6 +202,14 @@ function driveId(url: string): string {
   if (m) return m[1];
   if (/^[\w-]{25,}$/.test(url)) return url;
   return "";
+}
+
+// Google Drive share link -> direct-download URL (triggers a file download
+// instead of opening the Drive viewer). Returns null for non-Drive URLs.
+export function driveDownloadUrl(url: string): string | null {
+  if (!url) return null;
+  const id = driveId(url.trim());
+  return id ? `https://drive.google.com/uc?export=download&id=${id}` : null;
 }
 
 export function driveImg(url: string, size = "w800"): string {
