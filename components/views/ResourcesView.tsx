@@ -180,7 +180,14 @@ export default function ResourcesView() {
                       </span>
                       <span className="chip chip-gold text-[0.65rem]">{r.category}</span>
                     </div>
-                    <h3 className="h-display mt-5 text-2xl leading-snug">{r.title}</h3>
+                    {r.date && (
+                      <span className="mt-5 block font-mono text-xs tracking-wider text-gold-400">
+                        {r.date}
+                      </span>
+                    )}
+                    <h3 className={`h-display text-2xl leading-snug ${r.date ? "mt-2" : "mt-5"}`}>
+                      {r.title}
+                    </h3>
                     <p className="mt-3 text-sm leading-relaxed text-mist">{r.description}</p>
                     {r.author && (
                       <p className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-mist-dark">

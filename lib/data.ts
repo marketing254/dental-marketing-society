@@ -1,4 +1,4 @@
-import { asset } from "./asset";
+﻿import { asset } from "./asset";
 // Static fallback content. The live Google Sheet (lib/sheets.ts) overrides
 // these at runtime when reachable, exactly like the original site.
 
@@ -86,6 +86,7 @@ export interface ResourceItem {
   author?: string;
   tags: string[];
   pdf?: string;
+  date?: string;
 }
 
 export const UPCOMING_EVENTS: DmsEvent[] = [
@@ -298,7 +299,7 @@ export const RESOURCES: ResourceItem[] = [
     category: "Guide",
     title: "From Click to Consultation: The Patient Journey Audit",
     description:
-      "Map every digital touchpoint a prospective patient encounters before booking — and find the leak costing your practice consultations.",
+      "Map every digital touchpoint a prospective patient encounters before booking â€” and find the leak costing your practice consultations.",
     author: "OBA Editorial",
     tags: ["Patient Journey", "Digital Marketing", "Conversion"],
   },
@@ -306,7 +307,7 @@ export const RESOURCES: ResourceItem[] = [
     category: "Template",
     title: "Premium IOL Consultation Script & Objection Guide",
     description:
-      "A structured conversation framework for the in-office premium IOL discussion — including the 7 most common objections and how top surgeons respond.",
+      "A structured conversation framework for the in-office premium IOL discussion â€” including the 7 most common objections and how top surgeons respond.",
     author: "Guido Piquet, COO",
     tags: ["Premium IOL", "Sales Conversation", "Cataract"],
   },
@@ -314,7 +315,7 @@ export const RESOURCES: ResourceItem[] = [
     category: "Checklist",
     title: "90-Day Marketing ROI Audit Checklist",
     description:
-      "Pinpoint exactly where your marketing budget is working — and where it's leaking. Built for practice owners who don't have time to become marketers.",
+      "Pinpoint exactly where your marketing budget is working â€” and where it's leaking. Built for practice owners who don't have time to become marketers.",
     author: "Naren Arulrajah",
     tags: ["Marketing Audit", "ROI", "Google Ads"],
   },
@@ -322,7 +323,7 @@ export const RESOURCES: ResourceItem[] = [
     category: "Guide + Checklist",
     title: "The Dental Practice Growth Leak Checklist",
     description:
-      "A practical guide for dental practice owners to identify where growth is leaking across marketing, patient calls, team execution, and leadership — with checklists, a 7-day reset plan, and simple action steps to turn busyness into profitable growth.",
+      "A practical guide for dental practice owners to identify where growth is leaking across marketing, patient calls, team execution, and leadership â€” with checklists, a 7-day reset plan, and simple action steps to turn busyness into profitable growth.",
     author: "Dental Marketing Society Editorial",
     tags: ["Practice Growth", "Dental Marketing", "Team Execution", "Leadership"],
   },
@@ -334,5 +335,6 @@ export const RESOURCES: ResourceItem[] = [
     author: "Hameesha Hassan / Dental Marketing Society Editorial",
     tags: ["Patient Lead Quality", "Dental Marketing", "Practice Growth", "Lead Qualification"],
     pdf: "https://drive.google.com/file/d/1EFyAIj-TtEODfkAKSCNmNA60OyWaClIc/view?usp=sharing",
+    date: "Jul 15, 2026",
   },
 ];

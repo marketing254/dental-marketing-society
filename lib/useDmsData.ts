@@ -274,6 +274,10 @@ export function useResources(): ResourceItem[] {
           .map((t) => t.trim())
           .filter(Boolean),
         pdf: pick(r, ["pdf_url", "pdf", "file_url", "download_url", "link"]) || undefined,
+        date:
+          formatSheetDate(pick(r, ["date", "published", "updated"])) ||
+          pick(r, ["date", "published", "updated"]) ||
+          undefined,
       }));
     return list.length ? list : RESOURCES;
   }, [rows]);
