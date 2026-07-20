@@ -47,7 +47,14 @@ function parseDate(str: string): Date | null {
   if (!str) return null;
   const m = String(str).match(/^Date\((\d+),(\d+),(\d+)/);
   if (m) return new Date(parseInt(m[1]), parseInt(m[2]), parseInt(m[3]));
-  const d = new Date(str);
+  // Free-text sheet dates, e.g. "July 14th, 2026\n12 - 1PM EST": use the first
+  // line only and strip ordinal suffixes (14th -> 14) so Date() can parse.
+  const cleaned = String(str)
+    .split(/\n/)[0]
+    .replace(/(\d+)(st|nd|rd|th)\b/gi, "$1")
+    .replace(/\s+,/g, ",")
+    .trim();
+  const d = new Date(cleaned);
   return isNaN(d.getTime()) ? null : d;
 }
 function fmtDate(str: string): string {
