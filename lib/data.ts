@@ -206,6 +206,12 @@ export const TEAM: TeamMember[] = [
     photo: asset("/assets/team-adeesha.jpg"),
     bio: "Adeesha hosts and moderates our webinars and live conversations across platforms. Drawing on his broadcasting experience, he helps speakers share their expertise in a credible, engaging way that keeps our dental audience informed and builds their trust.",
   },
+  {
+    name: "Reshani Tamasha",
+    role: "Partnership Consultant",
+    photo: asset("/assets/reshani1.jpg"),
+    bio: "Reshani leads strategic partnerships at DMS, connecting clinicians, innovators, and organizations across the dental and aesthetic industries. With a strong background in training, speaking, and business building, she focuses on collaborations that drive long-term growth and meaningful industry impact.",
+  },
 ];
 
 export const REVIEWS: Review[] = [
