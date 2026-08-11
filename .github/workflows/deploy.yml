@@ -44,3 +44,17 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # After every deploy, tell Bing (IndexNow) about the current sitemap so new
+  # replay/webinar pages get crawled quickly instead of waiting to be found.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Submit live sitemap URLs to IndexNow
+        run: |
+          # Small buffer so the production deploy (Vercel builds this same
+          # push in parallel) is live before Bing crawls.
+          sleep 180
+          python indexnow.py --from-live-sitemap

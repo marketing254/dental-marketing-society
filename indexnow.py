@@ -3,13 +3,15 @@
 Submit URLs to IndexNow (Bing, Yandex, Naver, Seznam — NOT Google).
 
 Usage:
-    python indexnow.py                 # submit the default URL list below
-    python indexnow.py https://www.dentalmarketingsociety.com/about/  ...   # submit specific URLs
+    python indexnow.py                     # submit the default URL list below
+    python indexnow.py --from-live-sitemap # submit every URL in the live sitemap.xml
+    python indexnow.py https://www.dentalmarketingsociety.com/about/  ...   # specific URLs
 
 The key file must already be live at:
     https://www.dentalmarketingsociety.com/753d2483e668c125d1c29c3c0d573a9c.txt
 """
 import json
+import re
 import sys
 import urllib.request
 
@@ -70,6 +72,20 @@ def submit(urls):
         sys.exit(1)
 
 
+def live_sitemap_urls():
+    """Every <loc> in the production sitemap."""
+    with urllib.request.urlopen(f"https://{HOST}/sitemap.xml", timeout=30) as resp:
+        xml = resp.read().decode("utf-8", "ignore")
+    return re.findall(r"<loc>([^<]+)</loc>", xml)
+
+
 if __name__ == "__main__":
-    urls = sys.argv[1:] or DEFAULT_URLS
+    args = sys.argv[1:]
+    if args == ["--from-live-sitemap"]:
+        urls = live_sitemap_urls()
+        if not urls:
+            print("No URLs found in the live sitemap — aborting.")
+            sys.exit(1)
+    else:
+        urls = args or DEFAULT_URLS
     submit(urls)

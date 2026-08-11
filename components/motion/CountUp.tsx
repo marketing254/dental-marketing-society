@@ -26,7 +26,11 @@ export default function CountUp({
   const suffix = match?.[3] ?? "";
   const decimals = match?.[2].includes(".") ? match[2].split(".")[1].length : 0;
 
-  const [display, setDisplay] = useState(() => (match ? `${prefix}0${suffix}` : value));
+  // IMPORTANT: initial state is the REAL value, not 0 — this is what's in the
+  // server-rendered HTML, so crawlers and AI systems (which don't run JS or
+  // trigger scroll animations) read the true figure instead of "0+". The
+  // count-up is purely a progressive enhancement once the span scrolls into view.
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (!match || isNaN(target) || !inView) return;

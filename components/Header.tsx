@@ -45,7 +45,7 @@ const NAV: NavItem[] = [
       { href: "/resources", label: "Podcast", sub: "Coming soon", icon: "mic" },
     ],
   },
-  { href: SITE.communityUrl, label: "Community", external: true },
+  { href: "/community", label: "Community" },
   { href: "/msm", label: "Marketing" },
   {
     href: "/contact",

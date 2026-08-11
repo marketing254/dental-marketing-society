@@ -1,0 +1,46 @@
+{
+  "redirects": [
+    {
+      "source": "/replays/fix-your-cancellations/",
+      "destination": "/replays/fix-your-cancellations-and-attract-the-right-patients/",
+      "permanent": true
+    },
+    {
+      "source": "/replays/fix-your-cancellations",
+      "destination": "/replays/fix-your-cancellations-and-attract-the-right-patients/",
+      "permanent": true
+    },
+    {
+      "source": "/replays/stand-out-get-found-first/",
+      "destination": "/replays/simple-ways-to-stand-out-and-get-found-first-in-your-city/",
+      "permanent": true
+    },
+    {
+      "source": "/replays/stand-out-get-found-first",
+      "destination": "/replays/simple-ways-to-stand-out-and-get-found-first-in-your-city/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self'; object-src 'none'; base-uri 'self'"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ]
+}

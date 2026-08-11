@@ -1,0 +1,48 @@
+name: Sync new webinar replays
+
+# New replays/webinars are added in the Google Sheet, not in git — so nothing
+# rebuilds the static site when the sheet changes. This workflow checks every
+# 6 hours: if the sheet has replay/webinar pages the LIVE sitemap doesn't know
+# about, it rebuilds the site (GitHub Pages + optional Vercel deploy hook) and
+# submits the new URLs to IndexNow (Bing).
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write # lets this workflow trigger deploy.yml
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare sheet vs live sitemap
+        id: diff
+        run: python scripts/check_new_replays.py
+
+      - name: Rebuild site (GitHub Pages)
+        if: steps.diff.outputs.new_urls != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
+
+      - name: Rebuild production (Vercel deploy hook)
+        if: steps.diff.outputs.new_urls != ''
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$HOOK" ]; then
+            curl -fsS -X POST "$HOOK" > /dev/null && echo "Vercel deploy triggered."
+          else
+            echo "VERCEL_DEPLOY_HOOK_URL secret not set — skipping (add it in repo Settings -> Secrets so production rebuilds too)."
+          fi
+
+      - name: Submit new URLs to IndexNow (Bing)
+        if: steps.diff.outputs.new_urls != ''
+        run: |
+          # Give the rebuilds a head start so the URLs return 200 when crawled.
+          sleep 300
+          python indexnow.py ${{ steps.diff.outputs.new_urls }}

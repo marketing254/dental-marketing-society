@@ -30,7 +30,8 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Dental Marketing Society, Marketing Webinars For Dental Practice Owners",
+    // Keep the fallback under 60 chars so it never truncates in SERPs.
+    default: "Dental Marketing Society: Free Webinars for Dentists",
     template: "%s, Dental Marketing Society",
   },
   description:

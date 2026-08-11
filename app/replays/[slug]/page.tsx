@@ -28,11 +28,19 @@ export async function generateMetadata({
   const row = rows.find(
     (r) => (pickRow(r, ["slug"]) || slugify(pickRow(r, ["title"]))) === slug
   );
-  const title =
-    (row && pickRow(row, ["title"])) || ARCHIVE.find((r) => r.slug === slug)?.title;
-  const desc = title
-    ? `Watch the free replay of the Dental Marketing Society webinar: ${title}.`
-    : "Watch free Dental Marketing Society webinar replays on demand.";
+  const fallback = ARCHIVE.find((r) => r.slug === slug);
+  const title = (row && pickRow(row, ["title"])) || fallback?.title;
+  // Prefer the session's own summary/subtitle so every replay gets a unique,
+  // benefit-driven description instead of one shared template string.
+  const summary =
+    (row && (pickRow(row, ["summary"]) || pickRow(row, ["subtitle"]))) ||
+    fallback?.summary ||
+    fallback?.subtitle;
+  const desc = summary
+    ? `${summary.slice(0, 130)}${summary.length > 130 ? "…" : ""} Watch the free webinar replay.`
+    : title
+      ? `Watch the free replay of the Dental Marketing Society webinar: ${title}.`
+      : "Watch free Dental Marketing Society webinar replays on demand.";
   return {
     title: title ? `${title}, Webinar Replay` : "Webinar Replay",
     description: desc,

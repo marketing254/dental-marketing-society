@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* The /community page's pre-built fragment (content/) is ~700KB of HTML with
+   embedded base64 fonts/images. Excluding it from Tailwind's source scanner is
+   required: scanning it crashes Turbopack's PostCSS worker in dev. */
+@source not "../content";
+
 @theme inline {
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;

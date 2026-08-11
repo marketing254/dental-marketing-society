@@ -124,8 +124,10 @@ export const HERO_EVENT = UPCOMING_EVENTS[0];
 export const ARCHIVE: ArchiveItem[] = [
   { date: "May 15, 2026", title: "Stop Revenue Leakage: From Chairside Production to Bank-Ready Profit", slug: "stop-revenue-leakage" },
   { date: "April 13, 2026", title: "From Chaos to Consistency: Building Efficient Systems That Keep Dental Practices Running Smoothly", slug: "from-chaos-to-consistency" },
-  { date: "March 11, 2026", title: "Simple Ways to Stand Out and Get Found First in Your City", slug: "stand-out-get-found-first" },
-  { date: "February 11, 2026", title: "Fix Your Cancellations and Attract the Right Patients", slug: "fix-your-cancellations" },
+  // Slugs match slugify(title) so the fallback and the live sheet produce ONE
+  // canonical URL per replay (the old short slugs 301 via vercel.json).
+  { date: "March 11, 2026", title: "Simple Ways to Stand Out and Get Found First in Your City", slug: "simple-ways-to-stand-out-and-get-found-first-in-your-city" },
+  { date: "February 11, 2026", title: "Fix Your Cancellations and Attract the Right Patients", slug: "fix-your-cancellations-and-attract-the-right-patients" },
   { date: "January 14, 2026", title: "AI in Dentistry: Stay Competitive. Attract More Patients", slug: "ai-in-dentistry" },
   { date: "December 16, 2025", title: "Finish Strong, Start Stronger: Lead Your Practice into 2026 with Clarity & Confidence", slug: "finish-strong-start-stronger" },
   { date: "November 12, 2025", title: "Turn Clicks into Patients: What Your Dental Website Should Really Be Doing for You", slug: "turn-clicks-into-patients" },
