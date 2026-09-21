@@ -32,6 +32,7 @@ export function EventCard({
         month={event.month}
         index={index}
         showTitle={false}
+        image={event.image}
       />
     </div>
   );
@@ -136,6 +137,7 @@ export function HeroEventCard({ event }: { event: DmsEvent }) {
               label="Next live webinar"
               day={event.day}
               month={event.month}
+              image={event.image}
             />
           </div>
           <div className="p-6 sm:p-7">

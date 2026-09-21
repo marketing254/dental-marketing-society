@@ -34,6 +34,8 @@ export async function generateMetadata({
     UPCOMING_EVENTS.find((e) => slugify(e.title) === slug)?.description;
   const desc =
     description || "Register free for an upcoming Dental Marketing Society webinar.";
+  // Promo banner from the sheet's `image_urls` column → social share image.
+  const image = row ? normalizeWebinarRow(row).image : undefined;
   return {
     title: title || "Upcoming Webinar",
     description: desc,
@@ -43,6 +45,7 @@ export async function generateMetadata({
       title: title || "Upcoming Webinar",
       description: desc,
       url: `/webinars/${slug}`,
+      ...(image ? { images: [{ url: image, alt: title || "Upcoming Webinar" }] } : {}),
     },
   };
 }

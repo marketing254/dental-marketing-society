@@ -134,11 +134,7 @@ export default function WebinarDetailView({
                 <TiltCard maxTilt={5}>
                   <div className="glass-strong overflow-hidden !rounded-[1.8rem] p-2.5">
                     <div className="relative aspect-[1200/630] overflow-hidden rounded-[1.4rem]">
-                      {event.image ? (
-                        <Image src={event.image} alt={event.title} fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
-                      ) : (
-                        <EventCover title={event.title} label="Live Webinar" day={event.day} month={event.month} />
-                      )}
+                      <EventCover title={event.title} label="Live Webinar" day={event.day} month={event.month} image={event.image} />
                     </div>
                   </div>
                 </TiltCard>
@@ -179,7 +175,7 @@ export default function WebinarDetailView({
                       <TiltCard className="h-full">
                         <Link href={`/webinars/${slugify(e.title)}`} className="glass flex h-full flex-col overflow-hidden !rounded-3xl">
                           <div className="relative aspect-[1200/630] overflow-hidden">
-                            <EventCover title={e.title} label="Live Webinar" day={e.day} month={e.month} index={i + 1} showTitle={false} />
+                            <EventCover title={e.title} label="Live Webinar" day={e.day} month={e.month} index={i + 1} showTitle={false} image={e.image} />
                           </div>
                           <div className="p-6">
                             <span className="font-mono text-xs tracking-wider text-gold-400">{e.dateLabel}</span>

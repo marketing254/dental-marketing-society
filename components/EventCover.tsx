@@ -36,6 +36,7 @@ export default function EventCover({
   month,
   index = 0,
   showTitle = true,
+  image,
 }: {
   title: string;
   label?: string;
@@ -44,7 +45,25 @@ export default function EventCover({
   index?: number;
   /** When false the title text is hidden (avoids repeating it under a card). */
   showTitle?: boolean;
+  /**
+   * Promo banner from the sheet's `image_urls` column (already converted to a
+   * direct Drive CDN URL). When present it replaces the generated design so the
+   * team's own artwork shows on every card automatically.
+   */
+  image?: string;
 }) {
+  if (image) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={image}
+        alt={title}
+        referrerPolicy="no-referrer"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full select-none object-cover"
+      />
+    );
+  }
   const t = THEMES[index % THEMES.length];
   return (
     <div className="absolute inset-0 select-none" style={{ background: t.bg }}>
