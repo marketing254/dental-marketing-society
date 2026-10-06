@@ -74,7 +74,7 @@ export async function buildLlmsTxt(): Promise<string> {
     `- Reviews: ${U("/reviews")}`,
     `- Featured Partners: ${U("/partners")}`,
     `- Free Resource Library: ${U("/resources")}`,
-    `- Community (Dental Member Network): ${U("/community")}`,
+    `- Community (Dental Member Network): ${SITE.communityUrl}`,
     `- Free Practice Audit: ${U("/msm")}`,
     `- Apply to Speak: ${U("/speaker")}`,
     `- Contact: ${U("/contact")}`,

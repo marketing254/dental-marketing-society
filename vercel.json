@@ -1,5 +1,7 @@
 {
   "redirects": [
+    { "source": "/community", "destination": "https://www.dentalmembernetwork.com/", "permanent": true },
+    { "source": "/community/", "destination": "https://www.dentalmembernetwork.com/", "permanent": true },
     {
       "source": "/replays/fix-your-cancellations/",
       "destination": "/replays/fix-your-cancellations-and-attract-the-right-patients/",

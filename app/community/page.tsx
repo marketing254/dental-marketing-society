@@ -1,38 +1,34 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
-import CommunityInteractions from "@/components/community/CommunityInteractions";
-import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { SITE } from "@/lib/site";
 
+// /community has moved to the Dental Member Network's own domain. The site is
+// a static export (GitHub Pages can't do server redirects), so this page is a
+// meta-refresh + JS redirect. Vercel additionally serves a real 308 redirect
+// (see vercel.json). Kept out of the sitemap and marked noindex.
 export const metadata: Metadata = {
   title: "Community, The Dental Member Network",
   description:
-    "The Dental Member Network, from the team behind Dental Marketing Society. Bring any practice problem in plain English and a real person writes back a plan within 2 to 3 business days.",
-  alternates: { canonical: "/community" },
+    "The Dental Member Network has moved to dentalmembernetwork.com. Redirecting you now.",
+  robots: { index: false, follow: true },
+  alternates: { canonical: SITE.communityUrl },
 };
 
-// The page body is the self-contained Member Network landing page (fonts and
-// images embedded), rebranded for DMS per the rollout addendum and rebuilt by
-// scripts into content/. It is read at build time so none of it ships in the
-// client JS bundle; the site layout supplies the real navbar and footer.
 export default function CommunityPage() {
-  const dir = path.join(process.cwd(), "content");
-  const css = fs.readFileSync(path.join(dir, "community.css"), "utf8");
-  const body = fs.readFileSync(path.join(dir, "community-body.html"), "utf8");
   return (
     <>
-      <JsonLd
-        data={[
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Community", path: "/community" },
-          ]),
-        ]}
+      {/* No-JS fallback; React 19 hoists this into <head>. */}
+      <meta httpEquiv="refresh" content={`0;url=${SITE.communityUrl}`} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `window.location.replace(${JSON.stringify(SITE.communityUrl)});`,
+        }}
       />
-      <style dangerouslySetInnerHTML={{ __html: css }} />
-      <div className="dmn" dangerouslySetInnerHTML={{ __html: body }} />
-      <CommunityInteractions />
+      <main className="container-x flex min-h-[60vh] flex-col items-center justify-center text-center">
+        <p className="text-mist">Redirecting you to the Dental Member Network…</p>
+        <a href={SITE.communityUrl} className="btn-gold btn-lg mt-6">
+          Continue to dentalmembernetwork.com
+        </a>
+      </main>
     </>
   );
 }
