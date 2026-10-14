@@ -10,7 +10,7 @@ import Reveal from "@/components/motion/Reveal";
 import TiltCard from "@/components/motion/TiltCard";
 import { Section, SectionHead } from "@/components/Section";
 import { FeatureCard, StatBand, CtaBand } from "@/components/blocks";
-import { useReviews } from "@/lib/useDmsData";
+import { REVIEWS } from "@/lib/data";
 import { SITE } from "@/lib/site";
 import { asset } from "@/lib/asset";
 
@@ -30,8 +30,10 @@ const STEPS: { icon: IconName; title: string; text: string }[] = [
 ];
 
 export default function AuditView() {
-  const reviews = useReviews("audit");
-  const review = reviews[0];
+  // Pinned strategy-call Google review. Deliberately NOT read from the sheet's
+  // `reviews` tab: that tab has no context column, so it would show webinar
+  // feedback here instead of a strategy-call review.
+  const review = REVIEWS.find((r) => r.context === "audit");
   const [schedLoaded, setSchedLoaded] = useState(false);
 
   return (

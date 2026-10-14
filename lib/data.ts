@@ -259,7 +259,7 @@ export const REVIEWS: Review[] = [
   {
     context: "audit",
     name: "Marie-Louise Ratcliffe",
-    firm: "1 review",
+    firm: "Marketing strategy call with Lila",
     text: "I just finished a marketing strategy call with Lila and this gave me so much valuable information, answers to questions that I did not know I have. This was an hour worth of knowledge and advice. I love their whole package offer as well as personalized approach to each client. Well researched, presented and communicated! Thank you, Lila!",
   },
 ];
